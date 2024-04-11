@@ -35,3 +35,13 @@ There are three difficulty modes:
 ![Screenshot_4](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/1fb16c30-f4ba-451e-8563-1c06fb046ca8)
 ![Screenshot_5](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/d663441b-7739-42a8-aef9-6ce9781f3710)
 ![Screenshot_6](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/9e9d88c7-4aa0-4ff8-b1e3-92a7ecff52d1)
+
+---
+
+<p align="center">
+  <a href="https://soundcloud.com/jack-c-lloyd/seequencer">
+    <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/18d10ac3-6723-4c23-817d-1454a8b4ba2c"/>
+  </a>
+</p>
+
+<p align="center">Listen on <b>SoundCloud</b></p>
