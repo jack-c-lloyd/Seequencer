@@ -1,4 +1,4 @@
-![Header](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/bd04e0ba-350e-4610-9252-9e0fd15684ec)
+![Header](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/6f86bbbe-6dc4-4a17-a576-ee651a5692f5)
 ![Footer](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/666673f2-a0ca-49f3-8bd8-54a9516c3fb9)
 
 # Seequencer
@@ -40,7 +40,7 @@ There are three difficulty modes:
 
 <p align="center">
   <a href="https://soundcloud.com/jack-c-lloyd/seequencer">
-    <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/18d10ac3-6723-4c23-817d-1454a8b4ba2c"/>
+    <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/351d4b37-95a6-491b-a394-4a3e8001ff14"/>
   </a>
 </p>
 
