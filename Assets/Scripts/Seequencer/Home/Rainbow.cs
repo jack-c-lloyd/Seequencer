@@ -55,11 +55,11 @@ public class Rainbow : MonoBehaviour
 	private List<Color> _colors = new List<Color>
 	{
 		Color.red,
-		Color.cyan,
+		Color.yellow,
 		Color.green,
-		Color.magenta,
+		Color.cyan,
 		Color.blue,
-		Color.yellow
+		Color.magenta
 	};
 
 	/// <summary>
