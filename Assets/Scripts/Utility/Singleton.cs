@@ -29,7 +29,25 @@ namespace Utility
 /// // MySingleton.cs
 /// public class MySingleton : Utility.Singleton&lt;MySingleton&gt;
 /// {
-///     // ...
+///     public void MyMethod()
+///     {
+///         // ...
+///     }
+/// }
+/// </code>
+/// <code>
+/// // MyExample.cs
+/// public class MyExample : UnityEngine.MonoBehaviour
+/// {
+///     private void Awake()
+///     {
+///         MySingleton.Instance.MyMethod(); // Unsafe
+///     }
+///
+///     private void Start()
+///     {
+///         MySingleton.Instance.MyMethod(); // Safe
+///     }
 /// }
 /// </code>
 /// </example>
@@ -45,19 +63,20 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	private bool _persistent = false;
 
 	/// <summary>
-	/// The single instance of <see cref="T"/>, if not <c>null</c>.
+	/// Singular instance of <see cref="T"/>, if not <c>null</c>.
 	/// </summary>
 	/// <remarks>
-	/// Do not call before <see cref="Setup"/>.
+	/// <b>Warning</b>:
+	/// do not call before <see cref="Setup"/>.
 	/// </remarks>
 	public static T Instance { get; private set; } = null;
 
 	/// <summary>
-	/// Set up the single instance of <see cref="T"/>, <see cref="Instance"/>,
-	/// if and only if it is <c>null</c>.
+	/// Set up <see cref="Instance"/>, if and only if it is <c>null</c>.
 	/// </summary>
 	/// <remarks>
-	/// Should be called in <see cref="Awake"/>.
+	/// <b>Warning</b>:
+	/// must be called in <see cref="Awake"/>.
 	/// </remarks>
 	protected void Setup()
 	{
@@ -78,7 +97,8 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	}
 
 	/// <remarks>
-	/// Call <see cref="Setup"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Setup"/>.
 	/// </remarks>
 	private void Awake()
 	{
