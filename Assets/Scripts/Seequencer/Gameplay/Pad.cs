@@ -19,22 +19,22 @@ namespace See
 {
 
 /// <summary>
-/// A <see cref="Pad"/> is played and recorded by a <see cref="Sequencer"/>.
+/// Played and recorded by a sequencer.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Pad")]
 [RequireComponent(typeof(Animator), typeof(Utility.Lockable))]
-public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
+public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 {
 	/// <summary>
-	/// The <see cref="Sequencer"/> parent.
+	/// The sequencer to be contained by.
 	/// </summary>
 	[SerializeField]
-	private Sequencer _parent = null;
+	private Sequencer _sequencer = null;
 
 	/// <summary>
-	/// Public-safe access to <see cref="_parent"/>.
+	/// Public-safe access to <see cref="_sequencer"/>.
 	/// </summary>
-	public Sequencer Parent => _parent;
+	public Sequencer Subject => _sequencer;
 
 	/// <summary>
 	/// 
@@ -45,7 +45,7 @@ public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
 	/// Lock for enabling and disabling interactions.
 	/// </summary>
 	/// <remarks>
-	/// <see cref="Utility.Lockable._parent"/> should be <see cref="_parent"/>.
+	/// <see cref="Utility.Lockable._master"/> must be <see cref="_sequencer"/>.
 	/// <remarks>
 	private Utility.Lockable _lock = null;
 
@@ -93,7 +93,7 @@ public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
 	private static int _STATE_ID_ON = Animator.StringToHash(_STATE_NAME_ON);
 
 	/// <remarks>
-	/// Get the attached <see cref="Animator"/> and <see cref="Utility.Lockable"/>.
+	/// Get the required components.
 	/// </remarks>
 	private void Awake()
 	{
@@ -107,7 +107,7 @@ public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
 	}
 
 	/// <remarks>
-	/// Set the audio clip as per <see cref="_note"/> on the attached source.
+	/// Set the audio clip as per <c>_note</c> on the attached source.
 	/// </remarks>
 	private void Start()
 	{
@@ -119,7 +119,7 @@ public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
 	}
 
 	/// <summary>
-	/// Play the pad via the attach <see cref="Animator"/>.
+	/// Play the pad via the attach animator.
 	/// </summary>
 	public IEnumerator Play()
 	{
@@ -140,35 +140,37 @@ public class Pad : MonoBehaviour, Utility.IChild<Sequencer>
 	}
 
 	/// <summary>
-	/// Method called to notify the parent <see cref="Sequencer"/>.
+	/// Method called to notify the sequencer that a pad has been pressed.
 	/// </summary>
 	public void Press()
 	{
-		if (_parent != null)
+		if (_sequencer != null)
 		{
-			_parent.Pressed(this);
+			_sequencer.Pressed(this);
 		}
 	}
 
 	/// <summary>
-	/// Must call <see cref="Sequencer.Attach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Sequencer.Attach"/>.
 	/// </summary>
 	public void OnEnable()
 	{
-		if (_parent != null && !_parent.Attach(this))
+		if (_sequencer != null && !_sequencer.Attach(this))
 		{
-			Debug.LogError($"{this} could not attach to {_parent}.");
+			Debug.LogError($"{this} could not attach to {_sequencer}.");
 		}
 	}
 
 	/// <summary>
-	/// Must call <see cref="Sequencer.Detach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Sequencer.Detach"/>.
 	/// </summary>
 	public void OnDisable()
 	{
-		if (_parent != null && !_parent.Detach(this))
+		if (_sequencer != null && !_sequencer.Detach(this))
 		{
-			Debug.LogError($"{this} could not detach from {_parent}.");
+			Debug.LogError($"{this} could not detach from {_sequencer}.");
 		}
 	}
 }

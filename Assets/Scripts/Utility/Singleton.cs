@@ -37,7 +37,7 @@ namespace Utility
 /// </code>
 /// <code>
 /// // MyExample.cs
-/// public class MyExample : UnityEngine.MonoBehaviour
+/// public class MyExample : MonoBehaviour
 /// {
 ///     private void Awake()
 ///     {

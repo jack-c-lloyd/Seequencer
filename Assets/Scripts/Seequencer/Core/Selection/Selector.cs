@@ -24,7 +24,7 @@ namespace See
 /// of attached children.
 /// </summary>
 [AddComponentMenu("Seequencer/Selection/Selector")]
-public class Selector : MonoBehaviour, Utility.IParent<Selectable>
+public class Selector : MonoBehaviour, Utility.ISubject<Selectable>
 {
 	/// <summary>
 	/// The selected <see cref="Selectable"/>, if not <c>null</c>.
@@ -58,42 +58,42 @@ public class Selector : MonoBehaviour, Utility.IParent<Selectable>
 	/// <summary>
 	/// Public-safe access to <see cref="_children"/>.
 	/// </summary>
-	public IReadOnlyCollection<Selectable> Children => _children;
+	public IReadOnlyCollection<Selectable> Observers => _children;
 
 	/// <summary>
-	/// Attach a <see cref="Selectable"/> child.
+	/// Attach a selectable.
 	/// </summary>
-	/// <param name="child">The child to attach.</param>
+	/// <param name="selectable">The selectable to attach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>selectable</c> is attached, otherwise <c>false</c>.
 	/// </returns>
-	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Attach(Selectable child)
+	/// <exception cref="System.ArgumentNullException"/>
+	public bool Attach(Selectable selectable)
 	{
-		if (child == null)
+		if (selectable == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(selectable));
 		}
 
-		return _children.Add(child);
+		return _children.Add(selectable);
 	}
 
 	/// <summary>
-	/// Detach a <see cref="Selectable"/> child.
+	/// Detach a selectable.
 	/// </summary>
-	/// <param name="child">The child to detach.</param>
+	/// <param name="selectable">The selectable to detach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>selectable</c> is detached, otherwise <c>false</c>.
 	/// </returns>
-	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Detach(Selectable child)
+	/// <exception cref="System.ArgumentNullException"/>
+	public bool Detach(Selectable selectable)
 	{
-		if (child == null)
+		if (selectable == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(selectable));
 		}
 
-		return _children.Remove(child);
+		return _children.Remove(selectable);
 	}
 
 	/// <summary>
@@ -147,6 +147,10 @@ public class Selector : MonoBehaviour, Utility.IParent<Selectable>
 	/// <summary>
 	/// Set up the initial state of the <see cref="Selectable"/> children.
 	/// </summary>
+	/// <remarks>
+	/// <b>Warning</b>:
+	/// must be called in <see cref="Start"/>.
+	/// </remarks>
 	private void Setup()
 	{
 		if (_selected != null && _children.Contains(_selected))
@@ -172,7 +176,8 @@ public class Selector : MonoBehaviour, Utility.IParent<Selectable>
 	}
 
 	/// <remarks>
-	/// Call <see cref="Setup"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Setup"/>.
 	/// </remarks>
 	private void Start()
 	{

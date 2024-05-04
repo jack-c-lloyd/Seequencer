@@ -20,35 +20,37 @@ namespace Utility
 {
 
 /// <summary>
-/// A <see cref="Lockable"/> invokes events if it is locked/unlocked with a key.
+/// Invokes events if it is locked/unlocked with a key.
 /// </summary>
 [AddComponentMenu("Utility/Lockable")]
-public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
+public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 {
 	/// <summary>
-	/// The parent <see cref="Lockable"/>.
+	/// The master lock.
 	/// </summary>
 	[SerializeField]
-	private Lockable _parent = null;
+	private Lockable _master = null;
 
 	/// <summary>
-	/// Public-safe access to <see cref="_parent"/>.
+	/// Public-safe access to <see cref="_master"/>.
 	/// </summary>
-	public Lockable Parent => _parent;
+	public Lockable Subject => _master;
 
 	/// <summary>
-	/// Set of <see cref="Lockable"/> children.
+	/// Set of dependent locks.
 	/// </summary>
-	private HashSet<Lockable> _children = new();
+	private HashSet<Lockable> _dependents = new();
 
 	/// <summary>
-	/// Public-safe access to <see cref="_children"/>.
+	/// Public-safe access to <see cref="_dependents"/>.
 	/// </summary>
-	public IReadOnlyCollection<Lockable> Children => _children;
+	public IReadOnlyCollection<Lockable> Observers => _dependents;
 
-	
+	/// <summary>
+	/// Whether or not to unlock dependents.
+	/// </summary>
 	[SerializeField]
-	private bool unlockChildren = false;
+	private bool _unlockDependents = false;
 
 	/// <summary>
 	/// Key required to lock and unlock.
@@ -88,7 +90,7 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 
 		OnLocked?.Invoke();
 
-		LockChildren();
+		LockDependents();
 	}
 
 	/// <summary>
@@ -104,13 +106,13 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	}
 
 	/// <summary>
-	/// Method called to lock the children.
+	/// Method called to lock the dependents.
 	/// </summary>
-	private void LockChildren()
+	private void LockDependents()
 	{
-		foreach (Lockable child in _children)
+		foreach (Lockable dependents in _dependents)
 		{
-			child.ForceLock();
+			dependents.ForceLock();
 		}
 	}
 
@@ -123,9 +125,9 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 
 		OnUnlocked?.Invoke();
 
-		if (unlockChildren)
+		if (_unlockDependents)
 		{
-			UnlockChildren();
+			UnlockDependents();
 		}
 	}
 
@@ -137,7 +139,7 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	{
 		if (IsLocked && key == _key)
 		{
-			if (Parent == null || !Parent.IsLocked)
+			if (Subject == null || !Subject.IsLocked)
 			{
 				ForceUnlock();
 			}
@@ -145,13 +147,13 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	}
 
 	/// <summary>
-	/// Method called to unlock the children.
+	/// Method called to unlock the dependents.
 	/// </summary>
-	private void UnlockChildren()
+	private void UnlockDependents()
 	{
-		foreach (Lockable child in _children)
+		foreach (Lockable dependent in _dependents)
 		{
-			child.ForceUnlock();
+			dependent.ForceUnlock();
 		}
 	}
 
@@ -159,7 +161,8 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	/// Set up the initial state.
 	/// </summary>
 	/// <remarks>
-	/// Should be called in <see cref="Start"/>.
+	/// <b>Warning</b>:
+	/// must be called in <see cref="Start"/>.
 	/// </remarks>
 	protected void Setup()
 	{
@@ -174,7 +177,8 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	}
 
 	/// <remarks>
-	/// Call <see cref="Setup"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Setup"/>.
 	/// </remarks>
 	private void Start()
 	{
@@ -182,69 +186,71 @@ public class Lockable : MonoBehaviour, IChild<Lockable>, IParent<Lockable>
 	}
 
 	/// <summary>
-	/// Attach a <see cref="Lockable"/> child.
+	/// Attach a dependent.
 	/// </summary>
-	/// <param name="child">The child to attach.</param>
+	/// <param name="dependent">The dependent to attach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>dependent</c> is attached, otherwise <c>false</c>.
 	/// </returns>
-	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Attach(Lockable child)
+	/// <exception cref="System.ArgumentNullException"/>
+	public bool Attach(Lockable dependent)
 	{
-		if (child == null)
+		if (dependent == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(dependent));
 		}
 
-		return _children.Add(child);
+		return _dependents.Add(dependent);
 	}
 
 	/// <summary>
-	/// Detach a child.
+	/// Detach a dependent.
 	/// </summary>
-	/// <param name="child">The child to detach.</param>
+	/// <param name="dependent">The dependent to detach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>dependent</c> is detached, otherwise <c>false</c>.
 	/// </returns>
 	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Detach(Lockable child)
+	public bool Detach(Lockable dependent)
 	{
-		if (child == null)
+		if (dependent == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(dependent));
 		}
 
-		return _children.Remove(child);
+		return _dependents.Remove(dependent);
 	}
 
 	/// <remarks>
-	/// Must call <see cref="Attach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Attach"/>.
 	/// </remarks>
 	public void OnEnable()
 	{
-		if (_parent != null && !_parent.Attach(this))
+		if (_master != null && !_master.Attach(this))
 		{
-			Debug.LogError($"{this} could not attach to {_parent}.");
+			Debug.LogError($"{this} could not attach to {_master}.");
 		}
 	}
 
 	/// <remarks>
-	/// Must call <see cref="Detach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Detach"/>.
 	/// </remarks>
 	public void OnDisable()
 	{
-		if (_parent != null && !_parent.Detach(this))
+		if (_master != null && !_master.Detach(this))
 		{
-			Debug.LogError($"{this} could not detach from {_parent}.");
+			Debug.LogError($"{this} could not detach from {_master}.");
 		}
 	}
 
 	/// <remarks>
-	/// Validate if there is not a circular dependency on itself.
+	/// Valid if there is not a circular dependency on itself.
 	/// </remarks>
 	private void OnValidate()
 	{
-		for (Lockable root = _parent; root != null; root = root.Parent)
+		for (Lockable root = _master; root != null; root = root.Subject)
 		{
 			if (root == this)
 			{

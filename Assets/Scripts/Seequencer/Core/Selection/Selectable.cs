@@ -22,18 +22,18 @@ namespace See
 /// A <see cref="Selectable"/> may be selected by its <see cref="Selector"/>.
 /// </summary>
 [AddComponentMenu("Seequencer/Selection/Selectable")]
-public class Selectable : MonoBehaviour, Utility.IChild<Selector>
+public class Selectable : MonoBehaviour, Utility.IObserver<Selector>
 {
 	/// <summary>
-	/// The parent <see cref="Selector"/>.
+	/// The <see cref="Selector"/>.
 	/// </summary>
 	[SerializeField]
-	private Selector _parent = null;
+	private Selector _selector = null;
 
 	/// <summary>
-	/// Public-safe access to <see cref="_parent"/>.
+	/// Public-safe access to <see cref="_selector"/>.
 	/// </summary>
-	public Selector Parent => _parent;
+	public Selector Subject => _selector;
 
 	/// <summary>
 	/// Event invoked if selected by a <see cref="Selector"/>.
@@ -74,31 +74,33 @@ public class Selectable : MonoBehaviour, Utility.IChild<Selector>
 	/// </summary>
 	public void Select()
 	{
-		if (_parent != null)
+		if (_selector != null)
 		{
-			_parent.Select(this);
+			_selector.Select(this);
 		}
 	}
 
 	/// <remarks>
-	/// Must call <see cref="Selector.Attach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Selector.Attach"/>.
 	/// </remarks>
 	public void OnEnable()
 	{
-		if (_parent != null && !_parent.Attach(this))
+		if (_selector != null && !_selector.Attach(this))
 		{
-			Debug.LogError($"{this} could not attach to {_parent}.");
+			Debug.LogError($"{this} could not attach to {_selector}.");
 		}
 	}
 
 	/// <remarks>
-	/// Must call <see cref="Selector.Detach"/>.
+	/// <b>Warning</b>:
+	/// must call <see cref="Selector.Detach"/>.
 	/// </remarks>
 	public void OnDisable()
 	{
-		if (_parent != null && !_parent.Detach(this))
+		if (_selector != null && !_selector.Detach(this))
 		{
-			Debug.LogError($"{this} could not detach from {_parent}.");
+			Debug.LogError($"{this} could not detach from {_selector}.");
 		}
 	}
 }

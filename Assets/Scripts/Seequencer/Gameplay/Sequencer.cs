@@ -20,25 +20,24 @@ namespace See
 {
 
 /// <summary>
-/// A <see cref="Sequencer"/> has a set of attached <see cref="Pad"/> children,
-/// of which it can generate, play, and record sequences.
+/// Contains pads, for which it can generate, play, and record sequences.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Sequencer")]
 [RequireComponent(typeof(Utility.Lockable))]
-public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
+public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 {
 	/// <summary>
-	/// List of <see cref="Pad"/> children.
+	/// List of pads, maintained as a set.
 	/// </summary>
-	private List<Pad> _children = new();
+	private List<Pad> _pads = new();
 
 	/// <summary>
-	/// Public-safe access to the children.
+	/// Public-safe access to <see cref="_pads"/>.
 	/// </summary>
-	public IReadOnlyCollection<Pad> Children => _children;
+	public IReadOnlyCollection<Pad> Observers => _pads;
 
 	/// <summary>
-	/// Generated sequence of <see cref="Pad"/> children.
+	/// Generated sequence of pads.
 	/// </summary>
 	private List<Pad> _sequence = new();
 
@@ -46,7 +45,7 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	/// Lock for recording.
 	/// </summary>
 	/// <remarks>
-	/// <see cref="Utility.Lockable.unlockChildren"/> must be <c>true</c>.
+	/// <see cref="Utility.Lockable._unlockDependents"/> must be <c>true</c>.
 	/// </remarks>
 	private Utility.Lockable _lock = null;
 
@@ -56,7 +55,7 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	private bool _isRecording = false;
 
 	/// <summary>
-	/// Index of the current <see cref="Pad"/>
+	/// Index of the current pad in the sequence to record.
 	/// </summary>
 	private int _recordingIndex = 0;
 
@@ -87,45 +86,45 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	private State _recordingState = State.INCOMPLETE;
 
 	/// <summary>
-	/// Attach a <see cref="Pad"/> child.
+	/// Attach a pad.
 	/// </summary>
-	/// <param name="child">The child to attach.</param>
+	/// <param name="pad">The pad to attach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>pad</c> is attached, otherwise <c>false</c>.
 	/// </returns>
 	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Attach(Pad child)
+	public bool Attach(Pad pad)
 	{
-		if (child == null)
+		if (pad == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(pad));
 		}
 
-		if (!_children.Contains(child))
+		if (!_pads.Contains(pad))
 		{
-			_children.Add(child);
+			_pads.Add(pad);
 		}
 
 		return true;
 	}
 
 	/// <summary>
-	/// Detach a <see cref="Pad"/> child.
+	/// Detach a pad.
 	/// </summary>
-	/// <param name="child">The child to detach.</param>
+	/// <param name="pad">The pad to detach.</param>
 	/// <returns>
-	/// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
+	/// <c>true</c> if <c>pad</c> is detached, otherwise <c>false</c>.
 	/// </returns>
 	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Detach(Pad child)
+	public bool Detach(Pad pad)
 	{
-		if (child == null)
+		if (pad == null)
 		{
-			throw new System.ArgumentNullException(nameof(child));
+			throw new System.ArgumentNullException(nameof(pad));
 		}
 
-		_children.Remove(child);
-		_sequence.RemoveAll(pad => pad == child);
+		_pads.Remove(pad);
+		_sequence.RemoveAll(attached => attached == pad);
 
 		return true;
 	}
@@ -138,15 +137,15 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	{
 		_sequence.Clear();
 
-		if (_children.Count == 0)
+		if (_pads.Count == 0)
 		{
-			Debug.LogError($"{_children} is empty.");
+			Debug.LogError($"{_pads} is empty.");
 		}
 
 		while (count-- > 0)
 		{
-			int index = Random.Range(0, _children.Count);
-			_sequence.Add(_children[index]);
+			int index = Random.Range(0, _pads.Count);
+			_sequence.Add(_pads[index]);
 		}
 	}
 	
@@ -187,10 +186,10 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	}
 
 	/// <summary>
-	/// Method called by a <see cref="Pad"/> if it has been pressed by a player;
-	/// if in recording mode it should be compared to the sequence.
+	/// Method called by a pad if it has been pressed by a player, and if in
+	/// recording mode, then it should be compared to the sequence.
 	/// </summary>
-	/// <param name="pad">The <see cref="Pad"/> that has been pressed.</param>
+	/// <param name="pad">The pad that has been pressed.</param>
 	public void Pressed(Pad pad)
 	{
 		if (_isRecording)
@@ -220,7 +219,7 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	}
 
 	/// <remarks>
-	/// Get <see cref="_lock"/>.
+	/// Get the lock.
 	/// </remarks>
 	private void Awake()
 	{
@@ -228,7 +227,7 @@ public class Sequencer : MonoBehaviour, Utility.IParent<Pad>
 	}
 
 	/// <remarks>
-	/// Lock <see cref="_lock"/>.
+	/// Should lock itself.
 	/// </remarks>
 	private void Start()
 	{
