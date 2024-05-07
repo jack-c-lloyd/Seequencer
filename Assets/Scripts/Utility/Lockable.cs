@@ -47,12 +47,6 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 	public IReadOnlyCollection<Lockable> Observers => _dependents;
 
 	/// <summary>
-	/// Whether or not to unlock dependents.
-	/// </summary>
-	[SerializeField]
-	private bool _unlockDependents = false;
-
-	/// <summary>
 	/// Key required to lock and unlock.
 	/// </summary>
 	[SerializeField]
@@ -124,11 +118,6 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 		_isLocked = false;
 
 		OnUnlocked?.Invoke();
-
-		if (_unlockDependents)
-		{
-			UnlockDependents();
-		}
 	}
 
 	/// <summary>
@@ -143,17 +132,6 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 			{
 				ForceUnlock();
 			}
-		}
-	}
-
-	/// <summary>
-	/// Method called to unlock the dependents.
-	/// </summary>
-	private void UnlockDependents()
-	{
-		foreach (Lockable dependent in _dependents)
-		{
-			dependent.ForceUnlock();
 		}
 	}
 
