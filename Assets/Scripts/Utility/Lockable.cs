@@ -227,9 +227,9 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 	/// </remarks>
 	public void OnEnable()
 	{
-		if (_master != null && !_master.Attach(this))
+		if (Subject != null && !Subject.Attach(this))
 		{
-			Debug.LogError($"{this} could not attach to {_master}.");
+			Debug.LogError($"{this} could not attach to {Subject}.");
 		}
 	}
 
@@ -239,9 +239,9 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 	/// </remarks>
 	public void OnDisable()
 	{
-		if (_master != null && !_master.Detach(this))
+		if (Subject != null && !Subject.Detach(this))
 		{
-			Debug.LogError($"{this} could not detach from {_master}.");
+			Debug.LogError($"{this} could not detach from {Subject}.");
 		}
 	}
 
@@ -250,7 +250,7 @@ public class Lockable : MonoBehaviour, IObserver<Lockable>, ISubject<Lockable>
 	/// </remarks>
 	private void OnValidate()
 	{
-		for (Lockable root = _master; root != null; root = root.Subject)
+		for (Lockable root = Subject; root != null; root = root.Subject)
 		{
 			if (root == this)
 			{
