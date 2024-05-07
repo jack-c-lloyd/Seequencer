@@ -77,7 +77,7 @@ public interface ISubject<T> : ISubjectBase where T : IObserverBase
 	/// <returns>
 	/// <c>true</c> if <c>observer</c> is attached, otherwise <c>false</c>.
 	/// </returns>
-	/// <exception cref="c"/>
+	/// <exception cref="System.ArgumentNullException"/>
 	bool Attach(T observer);
 
 	/// <summary>
