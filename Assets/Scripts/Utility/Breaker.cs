@@ -21,28 +21,28 @@ namespace Utility
 /// <summary>
 /// Acts as a circuit breaker in a one-way tree.
 /// </summary>
-public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switchable>
+public class Breaker : MonoBehaviour, IObserver<Breaker>, ISubject<Breaker>
 {
 	/// <summary>
-	/// The parent switch.
+	/// The parent breaker.
 	/// </summary>
 	[SerializeField]
-	private Switchable _parent = null;
+	private Breaker _parent = null;
 
 	/// <summary>
 	/// Public-safe access to <see cref="_parent"/>.
 	/// </summary>
-	public Switchable Subject => _parent;
+	public Breaker Subject => _parent;
 
 	/// <summary>
-	/// The switchable children.
+	/// Set of children.
 	/// </summary>
-	private HashSet<Switchable> _children = new();
+	private HashSet<Breaker> _children = new();
 
 	/// <summary>
 	/// Public-safe access to <see cref="_children"/>.
 	/// </summary>
-	public IReadOnlyCollection<Switchable> Observers => _children;
+	public IReadOnlyCollection<Breaker> Observers => _children;
 
 	[Header("Close/Open")]
 
@@ -95,7 +95,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	private UnityEvent OnDepower = null;
 
 	/// <summary>
-	/// Close the switch, if and only if it is open.
+	/// Close the breaker, if and only if it is open.
 	/// </summary>
 	public void Close()
 	{
@@ -110,7 +110,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	}
 
 	/// <summary>
-	/// Open the switch, if and only if it is closed.
+	/// Open the breaker, if and only if it is closed.
 	/// </summary>
 	public void Open()
 	{
@@ -125,7 +125,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	}
 
 	/// <summary>
-	/// Power the switch, if and only if it is not powered.
+	/// Power the breaker, if and only if it is not powered.
 	/// </summary>
 	private void Power()
 	{
@@ -138,7 +138,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	}
 
 	/// <summary>
-	/// Depower the switch, if and only if it is powered.
+	/// Depower the breaker, if and only if it is powered.
 	/// </summary>
 	private void Depower()
 	{
@@ -180,7 +180,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	/// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
 	/// </returns>
 	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Attach(Switchable child)
+	public bool Attach(Breaker child)
 	{
 		if (child == null)
 		{
@@ -198,7 +198,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	/// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
 	/// </returns>
 	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Detach(Switchable child)
+	public bool Detach(Breaker child)
 	{
 		if (child == null)
 		{
@@ -215,7 +215,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	{
 		Notified();
 
-		foreach (Switchable child in _children)
+		foreach (Breaker child in _children)
 		{
 			child.Notify();
 		}
@@ -262,7 +262,7 @@ public class Switchable : MonoBehaviour, IObserver<Switchable>, ISubject<Switcha
 	/// </remarks>
 	private void OnValidate()
 	{
-		for (Switchable root = Subject; root != null; root = root.Subject)
+		for (Breaker root = Subject; root != null; root = root.Subject)
 		{
 			if (root == this)
 			{

@@ -22,7 +22,7 @@ namespace See
 /// Played and recorded by a sequencer.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Pad")]
-[RequireComponent(typeof(Animator), typeof(Utility.Switchable))]
+[RequireComponent(typeof(Animator), typeof(Utility.Breaker))]
 public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 {
 	/// <summary>
@@ -42,9 +42,9 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	private Animator _animator = null;
 
 	/// <summary>
-	/// Switch for enabling and disabling interactions.
+	/// Breaker for enabling and disabling interactions.
 	/// </summary>
-	private Utility.Switchable _switch = null;
+	private Utility.Breaker _breaker = null;
 
 	/// <summary>
 	/// A note from the Seequencer theme.
@@ -100,7 +100,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 		Debug.Assert(_animator.HasState(0, _STATE_ID_OFF));
 		Debug.Assert(_animator.HasState(0, _STATE_ID_ON));
 
-		_switch = GetComponent<Utility.Switchable>();
+		_breaker = GetComponent<Utility.Breaker>();
 	}
 
 	/// <remarks>
@@ -122,7 +122,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	{
 		if (_animator.GetCurrentAnimatorStateInfo(0).IsName(_STATE_NAME_OFF))
 		{
-			_switch.Open();
+			_breaker.Open();
 
 			_animator.speed = 1.0f / duration;
 			_animator.SetTrigger("Play");
@@ -132,7 +132,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 			yield return new WaitWhile(() =>
 				_animator.GetCurrentAnimatorStateInfo(0).IsName(_STATE_NAME_ON));
 
-			_switch.Close();
+			_breaker.Close();
 		}
 	}
 

@@ -23,7 +23,7 @@ namespace See
 /// Contains pads, for which it can generate, play, and record sequences.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Sequencer")]
-[RequireComponent(typeof(Utility.Switchable))]
+[RequireComponent(typeof(Utility.Breaker))]
 public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 {
 	/// <summary>
@@ -42,9 +42,9 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	private List<Pad> _sequence = new();
 
 	/// <summary>
-	/// Switch for recording mode.
+	/// Breaker for recording mode.
 	/// </summary>
-	private Utility.Switchable _switch = null;
+	private Utility.Breaker _breaker = null;
 
 	/// <summary>
 	/// <c>true</c> if it is recording, otherwise <c>false</c>.
@@ -172,11 +172,11 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 			_recordingState = State.INCOMPLETE;
 			_recordingIndex = 0;
 
-			_switch.Close();
+			_breaker.Close();
 
 			yield return new WaitWhile(() => _isRecording);
 
-			_switch.Open();
+			_breaker.Open();
 
 			callback?.Invoke(_recordingState == State.CORRECT);
 		}
@@ -216,19 +216,19 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	}
 
 	/// <remarks>
-	/// Get the lock.
+	/// Get the <see cref="Breaker"/>.
 	/// </remarks>
 	private void Awake()
 	{
-		_switch = GetComponent<Utility.Switchable>();
+		_breaker = GetComponent<Utility.Breaker>();
 	}
 
 	/// <remarks>
-	/// Should lock itself.
+	/// Should call <see cref="Utility.Breaker.Open"/>.
 	/// </remarks>
 	private void Start()
 	{
-		_switch.Open();
+		_breaker.Open();
 	}
 }
 
