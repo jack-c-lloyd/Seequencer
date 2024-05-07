@@ -195,11 +195,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -280,6 +280,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -486,11 +490,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -571,6 +575,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -687,11 +695,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -772,6 +780,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -972,34 +984,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1235820647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f55eca7f4b374c37a93c30a360b39a0, type: 3}
+  m_Script: {fileID: 11500000, guid: ef5ed5a787a8e479dae3696d3b0d7474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _master: {fileID: 0}
-  _unlockDependents: 1
-  _key: 0
-  _isLocked: 1
-  OnLocked:
+  _parent: {fileID: 0}
+  _isClosed: 1
+  OnClose:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  _isPowered: 0
+  OnPower:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2163530119214607925}
-        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUnlocked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2163530119214607925}
-        m_TargetAssemblyTypeName: UnityEngine.Renderer, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 1071144688801510046}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1008,6 +1010,21 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+  OnDepower:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1071144688801510046}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!4 &1262685514 stripped
 Transform:
@@ -1081,11 +1098,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -1166,6 +1183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -1282,11 +1303,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -1367,6 +1388,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -1484,11 +1509,11 @@ PrefabInstance:
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _master
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3309313891621779652, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: _parent
       value: 
-      objectReference: {fileID: 1235820650}
+      objectReference: {fileID: 0}
     - target: {fileID: 3767482711204517820, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3
@@ -1561,6 +1586,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5969490480058097630, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
+      propertyPath: _parent
+      value: 
+      objectReference: {fileID: 1235820650}
     - target: {fileID: 6164082044423177248, guid: 63985825d5187465aa2c0c762581fb74, type: 3}
       propertyPath: m_Size.x
       value: 3

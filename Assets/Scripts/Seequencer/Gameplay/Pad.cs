@@ -22,7 +22,7 @@ namespace See
 /// Played and recorded by a sequencer.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Pad")]
-[RequireComponent(typeof(Animator), typeof(Utility.Lockable))]
+[RequireComponent(typeof(Animator), typeof(Utility.Switchable))]
 public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 {
 	/// <summary>
@@ -42,12 +42,9 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	private Animator _animator = null;
 
 	/// <summary>
-	/// Lock for enabling and disabling interactions.
+	/// Switch for enabling and disabling interactions.
 	/// </summary>
-	/// <remarks>
-	/// <see cref="Utility.Lockable._master"/> must be <see cref="_sequencer"/>.
-	/// <remarks>
-	private Utility.Lockable _lock = null;
+	private Utility.Switchable _switch = null;
 
 	/// <summary>
 	/// A note from the Seequencer theme.
@@ -103,7 +100,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 		Debug.Assert(_animator.HasState(0, _STATE_ID_OFF));
 		Debug.Assert(_animator.HasState(0, _STATE_ID_ON));
 
-		_lock = GetComponent<Utility.Lockable>();
+		_switch = GetComponent<Utility.Switchable>();
 	}
 
 	/// <remarks>
@@ -125,7 +122,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	{
 		if (_animator.GetCurrentAnimatorStateInfo(0).IsName(_STATE_NAME_OFF))
 		{
-			_lock.Lock();
+			_switch.Open();
 
 			_animator.speed = 1.0f / duration;
 			_animator.SetTrigger("Play");
@@ -135,7 +132,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 			yield return new WaitWhile(() =>
 				_animator.GetCurrentAnimatorStateInfo(0).IsName(_STATE_NAME_ON));
 
-			_lock.Unlock();
+			_switch.Close();
 		}
 	}
 

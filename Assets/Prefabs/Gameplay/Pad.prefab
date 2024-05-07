@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2427825663740523753}
   - component: {fileID: 1834572048615988434}
   - component: {fileID: 3767482711204517820}
-  - component: {fileID: 3309313891621779652}
+  - component: {fileID: 5969490480058097630}
   - component: {fileID: 2162262267170393572}
   - component: {fileID: 3075556199158273353}
   m_Layer: 3
@@ -229,7 +229,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3309313891621779652
+--- !u!114 &5969490480058097630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -238,29 +238,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166366324113373953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f55eca7f4b374c37a93c30a360b39a0, type: 3}
+  m_Script: {fileID: 11500000, guid: ef5ed5a787a8e479dae3696d3b0d7474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _parent: {fileID: 0}
-  unlockChildren: 0
-  _key: 0
-  _isLocked: 0
-  OnLocked:
+  _isClosed: 1
+  OnClose:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1834572048615988434}
-        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUnlocked:
+      m_Calls: []
+  OnOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  _isPowered: 0
+  OnPower:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1834572048615988434}
@@ -275,6 +265,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  OnDepower:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1834572048615988434}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2162262267170393572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18194e7f406e54603bb1449543798684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 0}
+  _sequencer: {fileID: 0}
   _note: 3
   duration: 3
 --- !u!114 &3075556199158273353

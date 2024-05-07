@@ -23,7 +23,7 @@ namespace See
 /// Contains pads, for which it can generate, play, and record sequences.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Sequencer")]
-[RequireComponent(typeof(Utility.Lockable))]
+[RequireComponent(typeof(Utility.Switchable))]
 public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 {
 	/// <summary>
@@ -42,12 +42,9 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	private List<Pad> _sequence = new();
 
 	/// <summary>
-	/// Lock for recording.
+	/// Switch for recording mode.
 	/// </summary>
-	/// <remarks>
-	/// <see cref="Utility.Lockable._unlockDependents"/> must be <c>true</c>.
-	/// </remarks>
-	private Utility.Lockable _lock = null;
+	private Utility.Switchable _switch = null;
 
 	/// <summary>
 	/// <c>true</c> if it is recording, otherwise <c>false</c>.
@@ -175,11 +172,11 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 			_recordingState = State.INCOMPLETE;
 			_recordingIndex = 0;
 
-			_lock.Unlock();
+			_switch.Close();
 
 			yield return new WaitWhile(() => _isRecording);
 
-			_lock.Lock();
+			_switch.Open();
 
 			callback?.Invoke(_recordingState == State.CORRECT);
 		}
@@ -223,7 +220,7 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	/// </remarks>
 	private void Awake()
 	{
-		_lock = GetComponent<Utility.Lockable>();
+		_switch = GetComponent<Utility.Switchable>();
 	}
 
 	/// <remarks>
@@ -231,7 +228,7 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	/// </remarks>
 	private void Start()
 	{
-		_lock.Lock();
+		_switch.Open();
 	}
 }
 
