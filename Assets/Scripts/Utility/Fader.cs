@@ -137,6 +137,34 @@ public class Fader : MonoBehaviour
 	{
 		Setup();
 	}
+
+	/// <remarks>
+	/// Ensure the minimum limit is less than or equal to the maximum limit,
+	/// and that <see cref="_current"/> is in-between.
+	/// </remarks>
+	private void OnValidate()
+	{
+		if (_minimum > _maximum)
+		{
+			Debug.LogError($"{nameof(_minimum)} must not be greater than {nameof(_maximum)}.");
+
+			_minimum = _maximum;
+		}
+
+		if (_current < _minimum)
+		{
+			Debug.LogError($"{nameof(_current)} must not be less than {nameof(_minimum)}.");
+
+			_current = _minimum;
+		}
+
+		if (_current > _maximum)
+		{
+			Debug.LogError($"{nameof(_current)} must not be greater than {nameof(_maximum)}.");
+
+			_current = _maximum;
+		}
+	}
 }
 
 }
