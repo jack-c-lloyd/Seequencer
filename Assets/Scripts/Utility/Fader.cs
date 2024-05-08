@@ -26,6 +26,12 @@ namespace Utility
 public class Fader : MonoBehaviour
 {
 	/// <summary>
+	/// Whether or not to disallow a fade from being interrupted by another.
+	/// </summary>
+	[SerializeField]
+	private bool _disallowInterrupts = false;
+
+	/// <summary>
 	/// Current value before, during, or after a fade.
 	/// </summary>
 	[SerializeField]
@@ -59,15 +65,19 @@ public class Fader : MonoBehaviour
 	/// <summary>
 	/// <c>true</c> if it is fading in or out, otherwise <c>false</c>.
 	/// </summary>
-	private bool _isFading = false;
+	public bool IsFading { get; private set; } = false;
 
 	/// <summary>
 	/// Fade in from the minimum to the maximum value.
 	/// </summary>
 	public void FadeIn()
 	{
-		StopAllCoroutines();
-		StartCoroutine(Fade(_current, _maximum));
+		if (!IsFading || !_disallowInterrupts)
+		{
+			StopAllCoroutines();
+			StartCoroutine(Fade(_current, _maximum));
+
+		}
 	}
 
 	/// <summary>
@@ -75,8 +85,11 @@ public class Fader : MonoBehaviour
 	/// </summary>
 	public void FadeOut()
 	{	
-		StopAllCoroutines();
-		StartCoroutine(Fade(_current, _minimum));
+		if (!IsFading || !_disallowInterrupts)
+		{
+			StopAllCoroutines();
+			StartCoroutine(Fade(_current, _minimum));
+		}
 	}
 
 	/// <summary>
@@ -86,30 +99,27 @@ public class Fader : MonoBehaviour
 	/// <param name="end">End value of the fade.</param>
 	private IEnumerator Fade(float start, float end)
 	{
-		if (!_isFading)
+		IsFading = true;
+
+		_current = start;
+		OnFade?.Invoke(start);
+
+		float elapsed = 0.0f;
+
+		while ((elapsed += Time.deltaTime) < _duration)
 		{
-			_isFading = true;
+			float t = Mathf.Clamp01(elapsed / _duration);
+			_current = Mathf.Lerp(start, end, t);
 
-			_current = start;
-			OnFade?.Invoke(start);
+			OnFade?.Invoke(_current);
 
-			float elapsed = 0.0f;
-
-			while ((elapsed += Time.deltaTime) < _duration)
-			{
-				float t = Mathf.Clamp01(elapsed / _duration);
-				_current = Mathf.Lerp(start, end, t);
-
-				OnFade?.Invoke(_current);
-
-				yield return null;
-			}
-
-			_current = end;
-			OnFade?.Invoke(end);
-
-			_isFading = false;
+			yield return null;
 		}
+
+		_current = end;
+		OnFade?.Invoke(end);
+
+		IsFading = false;
 	}
 }
 
