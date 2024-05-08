@@ -121,6 +121,22 @@ public class Fader : MonoBehaviour
 
 		IsFading = false;
 	}
+
+	/// <summary>
+	/// Invokes <see cref="OnFade"/> with the initial state.
+	/// </summary>
+	private void Setup()
+	{
+		OnFade?.Invoke(_current);
+	}
+
+	/// <remarks>
+	/// Must call <see cref="Setup"/>.
+	/// </remarks>
+	private void Awake()
+	{
+		Setup();
+	}
 }
 
 }
