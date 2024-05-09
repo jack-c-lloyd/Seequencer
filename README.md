@@ -3,10 +3,12 @@
 
 # Seequencer
 
-**Seequencer** is a virtual-reality (VR) app for Android and iOS, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio.
+**Seequencer** is a virtual-reality (VR) app for Android and iOS, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio. This project is developed on a MacBook Pro (Intel, 2020) running macOS Sonoma with an iPhone 14 running iOS 17 Developer Beta.
 
 > [!IMPORTANT]
-> **Configuration**: this project is developed on a MacBook Pro (Intel, 2020) with an iPhone 14; it is preconfigured for iOS builds (refer to the [Quickstart for Google Cardboard for Unity](https://developers.google.com/cardboard/develop/unity/quickstart) for Android build configurations).
+> **Build Settings**: refer to the [Quickstart for Google Cardboard for Unity](https://developers.google.com/cardboard/develop/unity/quickstart).
+> - [Android](https://developers.google.com/cardboard/develop/unity/quickstart#configuring_android_project_settings)
+> - [iOS](https://developers.google.com/cardboard/develop/unity/quickstart#configuring_ios_project_settings)
 
 ## Gameplay
 
