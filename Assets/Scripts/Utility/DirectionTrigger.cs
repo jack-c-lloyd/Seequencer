@@ -22,39 +22,42 @@ namespace Utility
 /// Invoke events by comparing the dot product of two forward-vectors to a
 /// threshold, if it is greater than or less than, or they are equal.
 /// </summary>
-[AddComponentMenu("Utility/DotComparer")]
-public class DotComparer : MonoBehaviour
+[AddComponentMenu("Utility/DirectionTrigger")]
+public class DirectionTrigger : MonoBehaviour
 {
 	/// <summary>
 	/// The left-hand side of the dot operation.
 	/// </summary>
-	public Transform leftHandSide;
+	[SerializeField]
+	private Transform _leftHandSide = null;
 
 	/// <summary>
 	/// The right-hand side of the dot operation.
 	/// </summary>
-	public Transform rightHandSide;
+	[SerializeField]
+	private Transform _rightHandSide = null;
 
 	/// <summary>
 	/// Compared to the dot product to invoke events. 
 	/// </summary>
 	[Range(-1.0f, 1.0f)]
-	public float threshold = 0.0f;
+	[SerializeField]
+	private float _threshold = 0.0f;
 
 	/// <summary>
 	/// Event invoked if the dot product is equal to the threshold.
 	/// </summary>
-	public UnityEvent OnEqual;
+	public UnityEvent OnEqual = null;
 
 	/// <summary>
 	/// Event invoked if the dot product is greater than the threshold.
 	/// </summary>
-	public UnityEvent OnGreaterThan;
+	public UnityEvent OnGreaterThan = null;
 
 	/// <summary>
 	/// Event invoked if the dot product is less than the theshold.
 	/// </summary>
-	public UnityEvent OnLessThan;
+	public UnityEvent OnLessThan = null;
 
 	/// <summary>
 	/// Internal states.
@@ -93,15 +96,15 @@ public class DotComparer : MonoBehaviour
 	/// </summary>
 	private void Compare()
 	{
-		if (leftHandSide == null || rightHandSide == null)
+		if (_leftHandSide == null || _rightHandSide == null)
 		{
 			_state = State.NIL;
 			return;
 		}
 
-		float dot = Vector3.Dot(leftHandSide.forward, rightHandSide.forward);
+		float dot = Vector3.Dot(_leftHandSide.forward, _rightHandSide.forward);
 
-		if (dot > threshold)
+		if (dot > _threshold)
 		{
 			if (_state != State.GT)
 			{
@@ -110,7 +113,7 @@ public class DotComparer : MonoBehaviour
 				OnGreaterThan?.Invoke();
 			}
 		}
-		else if (dot < threshold)
+		else if (dot < _threshold)
 		{
 			if (_state != State.LT)
 			{
@@ -131,7 +134,7 @@ public class DotComparer : MonoBehaviour
 	}
 
 	/// <remarks>
-	/// Call <see cref="Compare"/>.
+	/// Must call <see cref="Compare"/>.
 	/// </remarks>
 	void LateUpdate()
 	{
