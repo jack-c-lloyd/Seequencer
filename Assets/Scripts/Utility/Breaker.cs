@@ -21,6 +21,7 @@ namespace Utility
 /// <summary>
 /// Acts as a circuit breaker in a one-way tree.
 /// </summary>
+[AddComponentMenu("Utility/Breaker")]
 public class Breaker : MonoBehaviour, IObserver<Breaker>, ISubject<Breaker>
 {
 	/// <summary>
