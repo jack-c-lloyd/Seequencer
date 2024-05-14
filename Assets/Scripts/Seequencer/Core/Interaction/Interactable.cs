@@ -126,6 +126,23 @@ public class Interactable : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Method called by an <see cref="Interactor"/> to complete an interaction.
+	/// </summary>
+	/// <remarks>
+	/// <b>Note:</b>
+	/// an interaction can only be completed if the <see cref="Interactable"/>
+	/// is interacting with the same <see cref="Interactor"/>.
+	/// </remarks>
+	/// <param name="interactor">An <see cref="Interactor"/>.</param>
+	public void Complete(Interactor interactor)
+	{
+		if (_current == interactor)
+		{
+			CompleteTimer();
+		}
+	}
+
+	/// <summary>
 	/// Reset the elapsed time of an interaction.
 	/// </summary>
 	private void ResetTimer()

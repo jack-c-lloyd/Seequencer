@@ -94,6 +94,17 @@ public class Reticle : Interactor
 	}
 
 	/// <remarks>
+	/// Use the Google Cardboard XR Plugin API for manual interactions.
+	/// </remarks>
+	private void Update()
+	{
+		if (Google.XR.Cardboard.Api.IsTriggerPressed && _current != null)
+		{
+			_current.Complete(this);
+		}
+	}
+
+	/// <remarks>
 	/// Refer to <see cref="UpdateDiameters"/> and <see cref="UpdateWeights"/>.
 	/// </remarks>
 	private void LateUpdate()
