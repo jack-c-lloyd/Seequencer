@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parent: {fileID: 0}
-  _isClosed: 1
+  _isClosed: 0
   OnClose:
     m_PersistentCalls:
       m_Calls: []
@@ -5737,7 +5737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &2163530119398478320
 MeshRenderer:
   m_ObjectHideFlags: 0

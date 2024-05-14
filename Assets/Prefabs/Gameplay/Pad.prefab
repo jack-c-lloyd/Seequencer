@@ -152,7 +152,7 @@ MonoBehaviour:
   OnOpen:
     m_PersistentCalls:
       m_Calls: []
-  _isPowered: 0
+  _isPowered: 1
   OnPower:
     m_PersistentCalls:
       m_Calls:

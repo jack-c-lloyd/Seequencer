@@ -226,7 +226,7 @@ public class Breaker : MonoBehaviour, IObserver<Breaker>, ISubject<Breaker>
 	/// <b>Warning</b>:
 	/// must call <see cref="Notify"/>, if and only if it is the root.
 	/// </remarks>
-	private void Awake()
+	private void Start()
 	{
 		if (Subject == null)
 		{
