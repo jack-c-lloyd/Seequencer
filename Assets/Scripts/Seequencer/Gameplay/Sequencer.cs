@@ -27,6 +27,64 @@ namespace See
 public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 {
 	/// <summary>
+	/// Notes of the Seequencer theme.
+	/// </summary>
+	public enum Note
+	{
+		/// <summary>
+		/// Corresponds to the F2 note on a keyboard.
+		/// </summary>
+		F2,
+
+		/// <summary>
+		/// Corresponds to the E2 note on a keyboard.
+		/// </summary>
+		E2,
+
+		/// <summary>
+		/// Corresponds to the C#2 note on a keyboard.
+		/// </summary>
+		CS2,
+
+		/// <summary>
+		/// Corresponds to the C2 note on a keyboard.
+		/// </summary>
+		C2,
+
+		/// <summary>
+		/// Corresponds to the A1 note on a keyboard.
+		/// </summary>
+		A1,
+
+		/// <summary>
+		/// Corresponds to the G#1 note on a keyboard.
+		/// </summary>
+		GS1,
+
+		/// <summary>
+		/// Corresponds to the F1 note on a keyboard.
+		/// </summary>
+		F1,
+		/// <summary>
+		/// Corresponds to the E1 note on a keyboard.
+		/// </summary>
+		E1
+	}
+
+	/// <summary>
+	/// An audio clip per <see cref="Note"/>.
+	/// </summary>
+	[SerializeField]
+	private List<AudioClip> _notes = new List<AudioClip>(8);
+
+	/// <summary>
+	/// Get the corresponding audio clip for a note.
+	/// </summary>
+	/// <param name="note">Which note the audio clip corresponds to.</param>
+	/// <returns>An audio clip corresponding to <c>note</c>.</returns>
+	public AudioClip Clip(Note note) => _notes[(int)note];
+
+	/// <summary>
 	/// List of pads, maintained as a set.
 	/// </summary>
 	private List<Pad> _pads = new();
@@ -41,7 +99,7 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	/// </summary>
 	private List<Pad> _sequence = new();
 
-	/// <summary>
+	/// <summary>f
 	/// Breaker for recording mode.
 	/// </summary>
 	private Utility.Breaker _breaker = null;

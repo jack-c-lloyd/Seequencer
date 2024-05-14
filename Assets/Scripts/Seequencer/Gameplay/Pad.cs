@@ -14,6 +14,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace See
 {
@@ -22,7 +23,7 @@ namespace See
 /// Played and recorded by a sequencer.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Pad")]
-[RequireComponent(typeof(Animator), typeof(Utility.Breaker))]
+[RequireComponent(typeof(Animator), typeof(AudioSource), typeof(Utility.Breaker))]
 public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 {
 	/// <summary>
@@ -37,7 +38,7 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	public Sequencer Subject => _sequencer;
 
 	/// <summary>
-	/// 
+	/// The animator
 	/// </summary>
 	private Animator _animator = null;
 
@@ -50,7 +51,12 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 	/// A note from the Seequencer theme.
 	/// </summary>
 	[SerializeField]
-	private AudioController.Note _note = AudioController.Note.C2;
+	private Sequencer.Note _note = Sequencer.Note.C2;
+
+	/// <summary>
+	/// Public-safe access to <see cref="_note"/>.
+	/// </summary>
+	public Sequencer.Note Note => _note;
 
 	/// <summary>
 	/// Minimum duration of a note (in seconds).
@@ -103,18 +109,6 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 		_breaker = GetComponent<Utility.Breaker>();
 	}
 
-	/// <remarks>
-	/// Set the audio clip as per <c>_note</c> on the attached source.
-	/// </remarks>
-	private void Start()
-	{
-		// Ewww... horrible hack, refactor this!
-		if (TryGetComponent(out AudioSource audioSource))
-		{
-			audioSource.clip = AudioController.Instance.GetAudioClip(_note);
-		}
-	}
-
 	/// <summary>
 	/// Play the pad via the attach animator.
 	/// </summary>
@@ -126,6 +120,12 @@ public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 
 			_animator.speed = 1.0f / duration;
 			_animator.SetTrigger("Play");
+
+			if (_sequencer != null)
+			{
+				AudioClip clip = _sequencer.Clip(_note);
+				AudioSource.PlayClipAtPoint(clip, transform.position);
+			}
 
 			yield return new WaitWhile(() =>
 				_animator.GetNextAnimatorStateInfo(0).IsName(_STATE_NAME_ON));

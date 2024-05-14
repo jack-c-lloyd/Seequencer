@@ -975,6 +975,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ef5ccb030154bdebe7a7bcb80cd78c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _notes:
+  - {fileID: 8300000, guid: 669276491b13241d9992bb85054184b8, type: 3}
+  - {fileID: 8300000, guid: 8485a06f2218142eaa662a9f8396bc46, type: 3}
+  - {fileID: 8300000, guid: 78125fa76c2fc44bd8f419b8fbe9819a, type: 3}
+  - {fileID: 8300000, guid: 23b7ee26548f646d7a6c3c6fe3b33009, type: 3}
+  - {fileID: 8300000, guid: 9200fe09f1be94674b727c7bbb9751f4, type: 3}
+  - {fileID: 8300000, guid: edd7ebd06fb804f6a95d5cfad5081e33, type: 3}
+  - {fileID: 8300000, guid: 7b625060cd7334db692b162daceda5b5, type: 3}
+  - {fileID: 8300000, guid: 2b49f1a98abbc4893835c2bf0fc4e892, type: 3}
 --- !u!114 &1235820650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1683,7 +1692,8 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7658146683519216960, guid: f31145ddec5bc468c8f93a441423975c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
