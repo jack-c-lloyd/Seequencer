@@ -23,7 +23,7 @@ namespace See
 /// Played and recorded by a sequencer.
 /// </summary>
 [AddComponentMenu("Seequencer/Gameplay/Pad")]
-[RequireComponent(typeof(Animator), typeof(AudioSource), typeof(Utility.Breaker))]
+[RequireComponent(typeof(Animator), typeof(Utility.Breaker))]
 public class Pad : MonoBehaviour, Utility.IObserver<Sequencer>
 {
 	/// <summary>
