@@ -32,6 +32,12 @@ public class Director : Utility.Singleton<Director>
 	[SerializeField]
 	private Sequencer _sequencer = null;
 
+	/// <summary>
+	/// Arrow used by the player.
+	/// </summary>
+	[SerializeField]
+	private Navigator _navigator = null;
+
 	[Header("Messages")]
 
 	/// <summary>
@@ -209,8 +215,10 @@ public class Director : Utility.Singleton<Director>
 			do
 			{
 				yield return Countdown(3);
+				yield return _sequencer.Play(pad => _navigator.SetTarget(pad.transform));
 
-				yield return _sequencer.Play();
+				_navigator.ResetTarget();
+
 				yield return _sequencer.Record(callback => result = callback);
 
 				if (result)

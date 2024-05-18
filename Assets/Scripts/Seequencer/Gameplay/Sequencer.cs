@@ -207,10 +207,12 @@ public class Sequencer : MonoBehaviour, Utility.ISubject<Pad>
 	/// <summary>
 	/// Play the generated sequence.
 	/// </summary>
-	public IEnumerator Play()
+	public IEnumerator Play(System.Action<Pad> callback)
 	{
 		foreach (Pad pad in _sequence)
 		{
+			callback?.Invoke(pad);
+
 			yield return pad.Play();
 		}
 	}

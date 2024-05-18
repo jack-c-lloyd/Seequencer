@@ -26,8 +26,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Depth: 1000
-    - _DistanceInMeters: 10
-    - _InnerDiameter: 2.8e-44
-    - _OuterDiameter: 0.08726702
+    - _DistanceInMeters: 20
+    - _InnerDiameter: 0
+    - _OuterDiameter: 0.17453402
     m_Colors: []
   m_BuildTextureStacks: []
