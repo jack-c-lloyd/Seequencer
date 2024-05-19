@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 6483990001865307608}
   - component: {fileID: 7804078469319225566}
   - component: {fileID: 2658163473039045545}
+  - component: {fileID: 3101496908305240302}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -356,6 +357,49 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!114 &3101496908305240302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5265495137052848109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4049a1a0755ae694ba1b9761b2a0c096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _threshold: 3
+  OnStable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6898875357611402103}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnUnstable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6898875357611402103}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6657927190339138515
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +643,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _distance: 10
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -745,4 +788,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84382e8e0e8d74ac6b75eb82bc93cf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 979143657677906898}
