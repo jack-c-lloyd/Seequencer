@@ -161,13 +161,15 @@ public class Interactor : MonoBehaviour
 	/// Must call <see cref="Interactable.Exit"/> in order to prevent an
 	/// interaction-based softlock for <see cref="_previous"/>.
 	/// </remarks>
-	private void OnDisable()
+	protected virtual void OnDisable()
 	{
 		if (_previous != null)
 		{
 			_previous.Exit(this);
 			_previous = null;
 		}
+		
+		_current = null;
 
 		OnExit?.Invoke();
 	}

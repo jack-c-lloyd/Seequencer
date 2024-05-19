@@ -114,6 +114,13 @@ public class Reticle : Interactor
 		UpdateWeights();
 		_projector.UpdateDiameters(_renderer.material);
 	}
+
+	protected override void OnDisable()
+	{
+		base.OnDisable();
+		
+		UpdateWeights();
+	}
 }
 
 }
