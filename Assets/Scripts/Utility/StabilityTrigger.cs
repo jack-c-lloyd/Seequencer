@@ -25,6 +25,12 @@ public class StabilityTrigger : MonoBehaviour
 	private float _threshold = 10.0f;
 
 	/// <summary>
+	/// Cool-down time (in seconds).
+	/// </summary>
+	[SerializeField]
+	private float _cooldown = 1.0f;
+
+	/// <summary>
 	/// Event invoked if it is stable (within the threshold).
 	/// </summary>
 	[SerializeField]
@@ -40,6 +46,11 @@ public class StabilityTrigger : MonoBehaviour
 	/// Forward-vector of the previous update.
 	/// </summary>
 	private Vector3 _lastForward = Vector3.zero;
+
+	/// <summary>
+	/// Elapsed time for the cooldown (in seconds).
+	/// </summary>
+	private float _elapsed = 0.0f;
 
 	/// <summary>
 	/// <c>true</c> if it is stable, otherwise <c>false</c>.
@@ -68,10 +79,15 @@ public class StabilityTrigger : MonoBehaviour
 	{
 		if (IsStable())
 		{
-			OnStable?.Invoke();
+			if ((_elapsed += Time.deltaTime) > _cooldown)
+			{
+				OnStable?.Invoke();
+			}
 		}
 		else
 		{
+			_elapsed = 0.0f;
+
 			OnUnstable?.Invoke();
 		}
 	}
