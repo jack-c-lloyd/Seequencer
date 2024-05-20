@@ -215,9 +215,9 @@ public class Director : Utility.Singleton<Director>
 			do
 			{
 				yield return Countdown(3);
-				yield return _sequencer.Play(pad => _navigator.SetTarget(pad.transform));
+				yield return _sequencer.Play(pad => _navigator.Retarget(pad.transform));
 
-				_navigator.ResetTarget();
+				_navigator.Retarget(null);
 
 				yield return _sequencer.Record(callback => result = callback);
 

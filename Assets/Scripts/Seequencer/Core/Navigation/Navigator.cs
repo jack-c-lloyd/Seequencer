@@ -15,68 +15,105 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Rotates in 2D (i.e., around the z-axis) towards the target in 3D.
+/// </summary>
 [AddComponentMenu("Seequencer/Navigation/Navigator")]
 public class Navigator : MonoBehaviour
 {
+	/// <summary>
+	/// Camera to navigate towards the target.
+	/// </summary>
 	[SerializeField]
-	private Transform _root = null;
+	private Transform _camera = null;
 
+	/// <summary>
+	/// Target to navigate towards.
+	/// </summary>
 	[SerializeField]
 	private Transform _target = null;
 
-	[Range(-1.0f, 1.0f)]
+	/// <summary>
+	/// Threshold of the look-at angle (in degrees).
+	/// </summary>
+	[Range(0, 90.0f)]
 	[SerializeField]
-	private float _threshold = 0.0f;
-
-	[SerializeField]
-	private UnityEvent<bool> OnChange = null;
-
-	private bool _state = false;
+	private float _threshold = 45.0f;
 
 	/// <summary>
-	/// Set the target.
+	/// Event invoked if the target is (re)set or detargeted.
 	/// </summary>
-	/// <param name="target">Transform to target.</param>
-	public void SetTarget(Transform target)
+	[SerializeField]
+	private UnityEvent<bool> OnRetarget = null;
+
+	/// <summary>
+	/// (Re)set the target.
+	/// </summary>
+	/// <param name="target">Transform of the target.</param>
+	public void Retarget(Transform target)
 	{
 		_target = target;
 	}
 
 	/// <summary>
-	/// Reset the target.
-	/// </summary>
-	public void ResetTarget()
-	{
-		_target = null;
-	}
-
-	/// <summary>
-	/// Project the target onto a plane a rotate towards it.
+	/// Rotate in 2D (i.e., around the z-axis) towards the target in 3D by
+	/// projecting its position onto the plane of the camera.
 	/// </summary>
 	private void Rotate()
 	{
-		Vector3 projection = Vector3.ProjectOnPlane(_target.position, _root.forward);
-		Vector3 inverseProjection = Quaternion.Inverse(_root.rotation) * projection;
+		Vector3 point = _target.position;
+		Vector3 planeNormal = _camera.forward;
+		Vector3 projection = Vector3.ProjectOnPlane(point, planeNormal);
+		Vector3 inverse = Quaternion.Inverse(_camera.rotation) * projection;
 
-		float angle = Mathf.Atan2(inverseProjection.y, inverseProjection.x) * Mathf.Rad2Deg;
+		float angle = Mathf.Atan2(inverse.y, inverse.x) * Mathf.Rad2Deg;
 
 		transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 	}
 
-	private void LateUpdate()
+	/// <summary>
+	/// Try to calculate the angle between the camera and the target.
+	/// </summary>
+	/// <param name="angle">
+	/// Angle between the camera and the target (in degrees).
+	/// </param>
+	/// <returns>
+	/// <c>true</c> if the angle was calculated, otherwise <c>false</c>.
+	/// </returns>
+	/// <remarks>
+	/// <b>Warning:</b>
+	/// <c>angle</c> is set to <c>Mathf.Infinity</c> if it is not calculable.
+	/// </remarks>
+	private bool TryCalculateAngle(out float angle)
 	{
-		if (_target == null)
+		if (_camera == null || _target == null)
 		{
-			OnChange.Invoke(false);
-			return;
+			angle = Mathf.Infinity;
+
+			return false;
 		}
 
-		Vector3 direction = (_target.position - _root.position).normalized;
-		bool result = Vector3.Dot(_root.forward, direction) < _threshold;
+		Vector3 direction = (_target.position - _camera.position).normalized;
 
-		OnChange.Invoke(result);
+		float dot = Vector3.Dot(_camera.forward, direction);
+		float radians = Mathf.Acos(Mathf.Clamp01(dot));
+		float degrees = radians * Mathf.Rad2Deg;
 
-		if (result)
+		angle = degrees;
+
+		return true;
+	}
+
+	/// <remarks>
+	/// Must only call <see cref="Rotate"/>.
+	/// </remarks>
+	private void LateUpdate()
+	{
+		bool calculatedAngle = TryCalculateAngle(out float angle);
+
+		OnRetarget?.Invoke(calculatedAngle && angle > _threshold);
+
+		if (calculatedAngle)
 		{
 			Rotate();
 		}

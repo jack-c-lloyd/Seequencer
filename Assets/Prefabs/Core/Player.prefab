@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _threshold: 3
+  _cooldown: 1
   OnStable:
     m_PersistentCalls:
       m_Calls:
@@ -758,10 +759,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ee74639828a47a996c65eea57d7440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _root: {fileID: 6022842882785356814}
+  _camera: {fileID: 6022842882785356814}
   _target: {fileID: 0}
-  _threshold: 0.8
-  OnChange:
+  _threshold: 45
+  OnRetarget:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 979143657677906898}
