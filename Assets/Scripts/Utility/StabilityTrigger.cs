@@ -58,12 +58,7 @@ public class StabilityTrigger : MonoBehaviour
 	private bool IsStable()
 	{
 		float dot = Vector3.Dot(_lastForward, transform.forward);
-
-		// Mathf.Clamp01 returns < 1.0f ???
-		if (dot > 1.0f) dot = 1.0f;
-		if (dot < 0.0f) dot = 0.0f;
-
-		float radians = Mathf.Acos(dot);
+		float radians = Mathf.Acos(Mathf.Clamp01(dot));
 		float degrees = radians * Mathf.Rad2Deg;
 
 		_lastForward = transform.forward;
