@@ -21,7 +21,7 @@ using UnityEngine;
 /// <b>Reference</b>: 
 /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
 /// </remarks>
-[AddComponentMenu("Interactive/Navigation/Arrow")]
+[AddComponentMenu("Seequencer/Navigation/Arrow")]
 [RequireComponent(typeof(Renderer))]
 public class Arrow : MonoBehaviour
 {

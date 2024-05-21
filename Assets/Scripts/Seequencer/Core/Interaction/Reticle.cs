@@ -24,7 +24,7 @@ namespace See
 /// <b>Reference</b>: 
 /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
 /// </remarks>
-[AddComponentMenu("Interactive/Interaction/Reticle")]
+[AddComponentMenu("Seequencer/Interaction/Reticle")]
 [RequireComponent(typeof(SkinnedMeshRenderer))]
 public class Reticle : Interactor
 {
