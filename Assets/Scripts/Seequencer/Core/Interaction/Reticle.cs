@@ -29,9 +29,14 @@ namespace See
 public class Reticle : Interactor
 {
 	/// <summary>
-	/// Layer mask of <see cref="Interactable"/> components.
+	/// Projector used by the reticle.
 	/// </summary>
-	public LayerMask layerMask = 1 << 3;
+	private Hardboard.Projector _projector = new();
+
+	/// <summary>
+	/// Skinned mesh used by the reticle.
+	/// </summary>
+	private SkinnedMeshRenderer _renderer = null;
 
 	/// <summary>
 	/// Index of the <see cref="BlendShape"/> to close the reticle.
@@ -39,49 +44,13 @@ public class Reticle : Interactor
 	private const int _BLENDSHAPE_INDEX = 0;
 
 	/// <summary>
-	/// Mesh used to render the reticle.
-	/// </summary>
-	private SkinnedMeshRenderer _renderer = null;
-
-	/// <summary>
-	/// Projector used by the reticle.
-	/// </summary>
-	private Hardboard.Projector _projector = new();
-
-	/// <summary>
 	/// Update the mesh based on the reticle properties.
 	/// </summary>
 	private void UpdateWeights()
 	{
-		float weight = (_current != null) ? _current.Percentage : 0.0f;
+		float weight = Current?.Percentage ?? 0.0f;
 
 		_renderer.SetBlendShapeWeight(_BLENDSHAPE_INDEX, weight);
-	}
-
-	/// <summary>
-	/// Detect the current <see cref="Interactable"/>.
-	/// </summary>
-	/// <remarks>
-	/// <b>Note:</b>
-	/// overridden to accommodate for the Google Cardboard XR Plugin for Unity.
-	/// </remarks>
-	protected override void Detect()
-	{
-		Ray ray = new Ray(transform.position, transform.forward);
-		float maxDistance = Hardboard.Projector.MAX_DISTANCE;
-
-		if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, layerMask.value))
-		{
-			_current = hit.transform.GetComponent<Interactable>();
-
-			_projector.SetParams(hit.distance, _current != null);
-		}
-		else
-		{
-			_current = null;
-
-			_projector.ResetParams();
-		}
 	}
 
 	/// <remarks>
@@ -100,9 +69,9 @@ public class Reticle : Interactor
 	/// </remarks>
 	private void Update()
 	{
-		if (Google.XR.Cardboard.Api.IsTriggerPressed && _current != null)
+		if (Google.XR.Cardboard.Api.IsTriggerPressed)
 		{
-			_current.Complete(this);
+			Current?.Complete(this);
 		}
 	}
 
@@ -111,14 +80,9 @@ public class Reticle : Interactor
 	/// </remarks>
 	private void LateUpdate()
 	{
-		UpdateWeights();
+		_projector.SetParams(Distance, Current != null);
 		_projector.UpdateDiameters(_renderer.material);
-	}
 
-	protected override void OnDisable()
-	{
-		base.OnDisable();
-		
 		UpdateWeights();
 	}
 }

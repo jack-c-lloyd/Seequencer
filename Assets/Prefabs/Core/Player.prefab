@@ -375,8 +375,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6898875357611402103}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: See.Interactor, Assembly-CSharp
+        m_MethodName: set_CanInteract
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -390,8 +390,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6898875357611402103}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+        m_TargetAssemblyTypeName: See.Interactor, Assembly-CSharp
+        m_MethodName: set_CanInteract
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -611,6 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1739ea059213349ffb1d227966218612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canInteract: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
   OnEnter:
     m_PersistentCalls:
       m_Calls:
@@ -644,9 +648,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &7170251020108378673
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,3 +790,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84382e8e0e8d74ac6b75eb82bc93cf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactor: {fileID: 6898875357611402103}
