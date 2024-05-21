@@ -31,7 +31,7 @@ public class Reticle : Interactor
 	/// <summary>
 	/// Projector used by the reticle.
 	/// </summary>
-	private Hardboard.Projector _projector = new();
+	private Hardboard.Projector _projector;
 
 	/// <summary>
 	/// Skinned mesh used by the reticle.
@@ -62,6 +62,8 @@ public class Reticle : Interactor
 		{
 			Debug.LogError($"{nameof(_renderer)} is null.");
 		}
+
+		_projector = new(_renderer);
 	}
 
 	/// <remarks>
@@ -81,7 +83,7 @@ public class Reticle : Interactor
 	private void LateUpdate()
 	{
 		_projector.SetParams(Distance, Current != null);
-		_projector.UpdateDiameters(_renderer.material);
+		_projector.UpdateDiameters();
 
 		UpdateWeights();
 	}

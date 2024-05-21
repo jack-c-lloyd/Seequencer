@@ -22,13 +22,13 @@ using UnityEngine;
 /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
 /// </remarks>
 [AddComponentMenu("Interactive/Navigation/Arrow")]
-[RequireComponent(typeof(SkinnedMeshRenderer))]
+[RequireComponent(typeof(Renderer))]
 public class Arrow : MonoBehaviour
 {
 	/// <summary>
 	/// Projector used by the arrow.
 	/// </summary>
-	private Hardboard.Projector _projector = new();
+	private Hardboard.Projector _projector;
 
 	/// <summary>
 	/// Used for the arrow projection.
@@ -36,20 +36,17 @@ public class Arrow : MonoBehaviour
 	[SerializeField]
 	private See.Interactor _interactor = null;
 
-	/// <summary>
-	/// Skinned mesh used by the arrow.
-	/// </summary>
-	private SkinnedMeshRenderer _renderer = null;
-
 	/// <remarks>
 	/// Get <see cref="_renderer"/>.
 	/// </remarks>
 	private void Awake()
 	{
-		if (!TryGetComponent(out _renderer))
+		if (!TryGetComponent(out Renderer renderer))
 		{
-			Debug.LogError($"{nameof(_renderer)} is null.");
+			Debug.LogError($"{nameof(renderer)} is null.");
 		}
+
+		_projector = new(renderer);
 	}
 
 	/// <remarks>
@@ -58,6 +55,6 @@ public class Arrow : MonoBehaviour
 	private void Update()
 	{
 		_projector.SetParams(_interactor.Distance, true);
-		_projector.UpdateDiameters(_renderer.material);
+		_projector.UpdateDiameters();
 	}
 }

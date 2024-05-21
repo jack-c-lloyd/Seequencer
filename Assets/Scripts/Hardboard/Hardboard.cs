@@ -101,9 +101,28 @@ public class Projector
 	private float _outerDiameter = 0.0f;
 
 	/// <summary>
+	/// Renderer used by the projector.
+	/// </summary>
+	private Renderer _renderer = null;
+
+	/// <summary>
+	/// Create a projector for a renderer.
+	/// </summary>
+	/// <param name="renderer">The renderer to project.</param>
+	public Projector(Renderer renderer)
+	{
+		if (renderer == null)
+		{
+			Debug.LogError($"{nameof(renderer)} is null.");
+		}
+
+		_renderer = renderer;
+	}
+
+	/// <summary>
 	/// Updates the material based on the projection properties.
 	/// </summary>
-	public void UpdateDiameters(Material material)
+	public void UpdateDiameters()
 	{
 		_distance = Mathf.Clamp(_distance, MIN_DISTANCE, MAX_DISTANCE);
 
@@ -121,6 +140,8 @@ public class Projector
 		_outerDiameter = Mathf.Lerp(_outerDiameter,
 			outer_diameter, Time.unscaledDeltaTime * GROWTH_SPEED);
 		
+		Material material = _renderer.material;
+
 		material.SetFloat("_InnerDiameter", _innerDiameter * _distance);
 		material.SetFloat("_OuterDiameter", _outerDiameter * _distance);
 		material.SetFloat("_DistanceInMeters", _distance);
