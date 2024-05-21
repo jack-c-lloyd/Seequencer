@@ -17,7 +17,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace See
+namespace See.Controllers
 {
 
 /// <summary>

@@ -15,6 +15,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+namespace See.Navigation
+{
+
 /// <summary>
 /// Rotates in 2D (i.e., around the z-axis) towards the target in 3D.
 /// </summary>
@@ -118,4 +121,6 @@ public class Navigator : MonoBehaviour
 			Rotate();
 		}
 	}
+}
+
 }

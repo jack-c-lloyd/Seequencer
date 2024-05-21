@@ -18,6 +18,7 @@ using UnityEngine.Events;
 
 namespace Utility
 {
+
 /// <summary>
 /// Acts as a circuit breaker in a one-way tree.
 /// </summary>

@@ -15,7 +15,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace See
+namespace See.Home
 {
 
 /// <summary>
@@ -30,7 +30,7 @@ public class ScoreTextController : MonoBehaviour
 	/// <summary>
 	/// Build index of a scene for which to get the score.
 	/// </summary>
-	public See.SceneController.SceneIndex sceneIndex;
+	public Controllers.SceneController.SceneIndex sceneIndex;
 
 	/// <summary>
 	/// Prefix of the score text.
@@ -48,7 +48,7 @@ public class ScoreTextController : MonoBehaviour
 	/// </remarks>
 	private void Awake()
 	{
-		string name = System.Enum.GetName(typeof(SceneController.SceneIndex),
+		string name = System.Enum.GetName(typeof(Controllers.SceneController.SceneIndex),
 			(int)sceneIndex);
 
 		int score = PlayerPrefs.GetInt(name, 0);

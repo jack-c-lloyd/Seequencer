@@ -15,7 +15,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace See
+namespace See.Home
 {
 
 /// <summary>

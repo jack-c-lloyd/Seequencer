@@ -16,7 +16,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-namespace See
+namespace See.Gameplay
 {
 
 /// <summary>

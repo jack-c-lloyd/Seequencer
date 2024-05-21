@@ -16,7 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace See
+namespace See.Gameplay
 {
 
 /// <summary>

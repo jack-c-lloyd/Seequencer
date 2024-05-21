@@ -15,7 +15,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace See
+namespace See.Interaction
 {
 
 /// <summary>

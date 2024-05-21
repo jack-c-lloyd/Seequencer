@@ -14,7 +14,7 @@
 
 using UnityEngine;
 
-namespace See
+namespace See.Interaction
 {
 
 /// <summary>

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace See
+namespace See.Selection
 {
 
 /// <summary>

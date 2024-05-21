@@ -17,7 +17,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace See
+namespace See.Gameplay
 {
 
 /// <summary>
@@ -36,7 +36,7 @@ public class Director : Utility.Singleton<Director>
 	/// Arrow used by the player.
 	/// </summary>
 	[SerializeField]
-	private Navigator _navigator = null;
+	private Navigation.Navigator _navigator = null;
 
 	[Header("Messages")]
 

@@ -14,6 +14,9 @@
 
 using UnityEngine;
 
+namespace See.Navigation
+{
+
 /// <summary>
 /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
 /// </summary>
@@ -34,7 +37,7 @@ public class Arrow : MonoBehaviour
 	/// Used for the arrow projection.
 	/// </summary>
 	[SerializeField]
-	private See.Interactor _interactor = null;
+	private Interaction.Interactor _interactor = null;
 
 	/// <remarks>
 	/// Get <see cref="_renderer"/>.
@@ -57,4 +60,6 @@ public class Arrow : MonoBehaviour
 		_projector.SetParams(_interactor.Distance, true);
 		_projector.UpdateDiameters();
 	}
+}
+
 }
