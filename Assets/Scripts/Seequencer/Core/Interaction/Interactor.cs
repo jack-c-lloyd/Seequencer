@@ -205,6 +205,23 @@ public class Interactor : MonoBehaviour
 	}
 
 	/// <remarks>
+	/// Use the Google Cardboard XR Plugin API for manual interactions.
+	/// </remarks>
+	private void Update()
+	{
+		if (Google.XR.Cardboard.Api.IsTriggerPressed)
+		{
+			Detect();
+			Compare();
+
+			if (_current != null)
+			{
+				_current.Complete(this);
+			}
+		}
+	}
+
+	/// <remarks>
 	/// Must call <see cref="Detect"/> before <see cref="Compare"/>.
 	/// </remarks>
 	private void FixedUpdate()
