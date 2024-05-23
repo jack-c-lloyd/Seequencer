@@ -1,0 +1,22 @@
+# https://github.com/actions/stale
+name: Stale Issues and Pull Requests
+on:
+  schedule:
+  - cron: '0 12 * * *'
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/stale@v9
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        days-before-stale: 14
+        days-before-close: 7
+        stale-issue-message: 'This issue has been marked as stale.'
+        stale-pr-message: 'This pull request has been marked as stale.'
+        stale-issue-label: 'stale'
+        close-issue-reason: 'Closed due to being marked as stale.'
+        stale-pr-label: 'stale'
