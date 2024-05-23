@@ -19,260 +19,260 @@ using UnityEngine.Events;
 namespace Utility
 {
 
-/// <summary>
-/// Acts as a circuit breaker in a one-way tree.
-/// </summary>
-[AddComponentMenu("Utility/Breaker")]
-public class Breaker : MonoBehaviour, IObserver<Breaker>, ISubject<Breaker>
-{
-	/// <summary>
-	/// The parent breaker.
-	/// </summary>
-	[SerializeField]
-	private Breaker _parent = null;
+    /// <summary>
+    /// Acts as a circuit breaker in a one-way tree.
+    /// </summary>
+    [AddComponentMenu("Utility/Breaker")]
+    public class Breaker : MonoBehaviour, IObserver<Breaker>, ISubject<Breaker>
+    {
+        /// <summary>
+        /// The parent breaker.
+        /// </summary>
+        [SerializeField]
+        private Breaker _parent = null;
 
-	/// <summary>
-	/// Public-safe access to <see cref="_parent"/>.
-	/// </summary>
-	public Breaker Subject => _parent;
+        /// <summary>
+        /// Public-safe access to <see cref="_parent"/>.
+        /// </summary>
+        public Breaker Subject => _parent;
 
-	/// <summary>
-	/// Set of children.
-	/// </summary>
-	private HashSet<Breaker> _children = new();
+        /// <summary>
+        /// Set of children.
+        /// </summary>
+        private HashSet<Breaker> _children = new();
 
-	/// <summary>
-	/// Public-safe access to <see cref="_children"/>.
-	/// </summary>
-	public IReadOnlyCollection<Breaker> Observers => _children;
+        /// <summary>
+        /// Public-safe access to <see cref="_children"/>.
+        /// </summary>
+        public IReadOnlyCollection<Breaker> Observers => _children;
 
-	[Header("Close/Open")]
+        [Header("Close/Open")]
 
-	/// <summary>
-	/// <c>true</c> if is is closed, otherwise <c>false</c>.
-	/// </summary>
-	[SerializeField]
-	private bool _isClosed = false;
+        /// <summary>
+        /// <c>true</c> if is is closed, otherwise <c>false</c>.
+        /// </summary>
+        [SerializeField]
+        private bool _isClosed = false;
 
-	/// <summary>
-	/// Public-safe access to <see cref="_isClosed"/>.
-	/// </summary>
-	public bool IsClosed => _isClosed;
+        /// <summary>
+        /// Public-safe access to <see cref="_isClosed"/>.
+        /// </summary>
+        public bool IsClosed => _isClosed;
 
-	/// <summary>
-	/// Event invoked if it is closed.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnClose = null;
-	
-	/// <summary>
-	/// Event invoked if it is opened.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnOpen = null;
+        /// <summary>
+        /// Event invoked if it is closed.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnClose = null;
 
-	[Header("Power")]
+        /// <summary>
+        /// Event invoked if it is opened.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnOpen = null;
 
-	/// <summary>
-	/// <c>true</c> if is is powered, otherwise <c>false</c>.
-	/// </summary>
-	[SerializeField]
-	private bool _isPowered = false;
+        [Header("Power")]
 
-	/// <summary>
-	/// Public-safe access to <see cref="_isPowered"/>.
-	/// </summary>
-	public bool IsPowered => _isPowered;
+        /// <summary>
+        /// <c>true</c> if is is powered, otherwise <c>false</c>.
+        /// </summary>
+        [SerializeField]
+        private bool _isPowered = false;
 
-	/// <summary>
-	/// Event invoked if it is powered.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnPower = null;
+        /// <summary>
+        /// Public-safe access to <see cref="_isPowered"/>.
+        /// </summary>
+        public bool IsPowered => _isPowered;
 
-	/// <summary>
-	/// Event invoked if it is de-powered.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnDepower = null;
+        /// <summary>
+        /// Event invoked if it is powered.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnPower = null;
 
-	/// <summary>
-	/// Close the breaker, if and only if it is open.
-	/// </summary>
-	public void Close()
-	{
-		if (!_isClosed)
-		{
-			_isClosed = true;
+        /// <summary>
+        /// Event invoked if it is de-powered.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnDepower = null;
 
-			OnClose.Invoke();
+        /// <summary>
+        /// Close the breaker, if and only if it is open.
+        /// </summary>
+        public void Close()
+        {
+            if (!_isClosed)
+            {
+                _isClosed = true;
 
-			Notify();
-		}
-	}
+                OnClose.Invoke();
 
-	/// <summary>
-	/// Open the breaker, if and only if it is closed.
-	/// </summary>
-	public void Open()
-	{
-		if (_isClosed)
-		{
-			_isClosed = false;
+                Notify();
+            }
+        }
 
-			OnOpen.Invoke();
+        /// <summary>
+        /// Open the breaker, if and only if it is closed.
+        /// </summary>
+        public void Open()
+        {
+            if (_isClosed)
+            {
+                _isClosed = false;
 
-			Notify();
-		}
-	}
+                OnOpen.Invoke();
 
-	/// <summary>
-	/// Power the breaker, if and only if it is not powered.
-	/// </summary>
-	private void Power()
-	{
-		if (!_isPowered)
-		{
-			_isPowered = true;
+                Notify();
+            }
+        }
 
-			OnPower?.Invoke();
-		}
-	}
+        /// <summary>
+        /// Power the breaker, if and only if it is not powered.
+        /// </summary>
+        private void Power()
+        {
+            if (!_isPowered)
+            {
+                _isPowered = true;
 
-	/// <summary>
-	/// Depower the breaker, if and only if it is powered.
-	/// </summary>
-	private void Depower()
-	{
-		if (_isPowered)
-		{
-			_isPowered = false;
+                OnPower?.Invoke();
+            }
+        }
 
-			OnDepower?.Invoke();
-		}
-	}
+        /// <summary>
+        /// Depower the breaker, if and only if it is powered.
+        /// </summary>
+        private void Depower()
+        {
+            if (_isPowered)
+            {
+                _isPowered = false;
 
-	/// <summary>
-	/// Called if state has mutated in itself or up the tree.
-	/// </summary>
-	private void Notified()
-	{
-		if (_isClosed)
-		{
-			if (_parent == null || _parent.IsPowered)
-			{
-				Power();
-			}
-			else
-			{
-				Depower();
-			}
-		}
-		else
-		{
-			Depower();
-		}
-	}
+                OnDepower?.Invoke();
+            }
+        }
 
-	/// <summary>
-	/// Attach a child.
-	/// </summary>
-	/// <param name="dependent">The child to attach.</param>
-	/// <returns>
-	/// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
-	/// </returns>
-	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Attach(Breaker child)
-	{
-		if (child == null)
-		{
-			throw new System.ArgumentNullException(nameof(child));
-		}
+        /// <summary>
+        /// Called if state has mutated in itself or up the tree.
+        /// </summary>
+        private void Notified()
+        {
+            if (_isClosed)
+            {
+                if (_parent == null || _parent.IsPowered)
+                {
+                    Power();
+                }
+                else
+                {
+                    Depower();
+                }
+            }
+            else
+            {
+                Depower();
+            }
+        }
 
-		return _children.Add(child);
-	}
+        /// <summary>
+        /// Attach a child.
+        /// </summary>
+        /// <param name="dependent">The child to attach.</param>
+        /// <returns>
+        /// <c>true</c> if <c>child</c> is attached, otherwise <c>false</c>.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public bool Attach(Breaker child)
+        {
+            if (child == null)
+            {
+                throw new System.ArgumentNullException(nameof(child));
+            }
 
-	/// <summary>
-	/// Detach a child.
-	/// </summary>
-	/// <param name="dependent">The child to detach.</param>
-	/// <returns>
-	/// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
-	/// </returns>
-	/// <exception cref="System.ArgumentNullException"></exception>
-	public bool Detach(Breaker child)
-	{
-		if (child == null)
-		{
-			throw new System.ArgumentNullException(nameof(child));
-		}
+            return _children.Add(child);
+        }
 
-		return _children.Remove(child);
-	}
+        /// <summary>
+        /// Detach a child.
+        /// </summary>
+        /// <param name="dependent">The child to detach.</param>
+        /// <returns>
+        /// <c>true</c> if <c>child</c> is detached, otherwise <c>false</c>.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public bool Detach(Breaker child)
+        {
+            if (child == null)
+            {
+                throw new System.ArgumentNullException(nameof(child));
+            }
 
-	/// <summary>
-	/// Notify <see cref="Observers"/>.
-	/// </summary>
-	private void Notify()
-	{
-		Notified();
+            return _children.Remove(child);
+        }
 
-		foreach (Breaker child in _children)
-		{
-			child.Notify();
-		}
-	}
+        /// <summary>
+        /// Notify <see cref="Observers"/>.
+        /// </summary>
+        private void Notify()
+        {
+            Notified();
 
-	/// <remarks>
-	/// <b>Warning</b>:
-	/// must call <see cref="Notify"/>, if and only if it is the root.
-	/// </remarks>
-	private void Start()
-	{
-		if (Subject == null)
-		{
-			Notify();
-		}
-	}
+            foreach (Breaker child in _children)
+            {
+                child.Notify();
+            }
+        }
 
-	/// <remarks>
-	/// <b>Warning</b>:
-	/// must call <see cref="Attach"/>.
-	/// </remarks>
-	public void OnEnable()
-	{
-		if (Subject != null && !Subject.Attach(this))
-		{
-			Debug.LogError($"{this} could not attach to {Subject}.");
-		}
-	}
+        /// <remarks>
+        /// <b>Warning</b>:
+        /// must call <see cref="Notify"/>, if and only if it is the root.
+        /// </remarks>
+        private void Start()
+        {
+            if (Subject == null)
+            {
+                Notify();
+            }
+        }
 
-	/// <remarks>
-	/// <b>Warning</b>:
-	/// must call <see cref="Detach"/>.
-	/// </remarks>
-	public void OnDisable()
-	{
-		if (Subject != null && !Subject.Detach(this))
-		{
-			Debug.LogError($"{this} could not detach from {Subject}.");
-		}
-	}
+        /// <remarks>
+        /// <b>Warning</b>:
+        /// must call <see cref="Attach"/>.
+        /// </remarks>
+        public void OnEnable()
+        {
+            if (Subject != null && !Subject.Attach(this))
+            {
+                Debug.LogError($"{this} could not attach to {Subject}.");
+            }
+        }
 
-	/// <remarks>
-	/// Valid if there is not a circular dependency on itself.
-	/// </remarks>
-	private void OnValidate()
-	{
-		for (Breaker root = Subject; root != null; root = root.Subject)
-		{
-			if (root == this)
-			{
-				Debug.LogError($"{this} has a circular dependency on itself.");
-				return;
-			}
-		}
-	}
-}
+        /// <remarks>
+        /// <b>Warning</b>:
+        /// must call <see cref="Detach"/>.
+        /// </remarks>
+        public void OnDisable()
+        {
+            if (Subject != null && !Subject.Detach(this))
+            {
+                Debug.LogError($"{this} could not detach from {Subject}.");
+            }
+        }
+
+        /// <remarks>
+        /// Valid if there is not a circular dependency on itself.
+        /// </remarks>
+        private void OnValidate()
+        {
+            for (Breaker root = Subject; root != null; root = root.Subject)
+            {
+                if (root == this)
+                {
+                    Debug.LogError($"{this} has a circular dependency on itself.");
+                    return;
+                }
+            }
+        }
+    }
 
 }

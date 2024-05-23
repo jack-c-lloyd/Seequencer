@@ -17,65 +17,65 @@ using UnityEngine;
 namespace See.Interaction
 {
 
-/// <summary>
-/// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
-/// </summary>
-/// <remarks>
-/// <b>Reference</b>: 
-/// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
-/// </remarks>
-[AddComponentMenu("Seequencer/Interaction/Reticle")]
-[RequireComponent(typeof(SkinnedMeshRenderer))]
-public class Reticle : Interactor
-{
-	/// <summary>
-	/// Projector used by the reticle.
-	/// </summary>
-	private Hardboard.Projector _projector;
+    /// <summary>
+    /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
+    /// </summary>
+    /// <remarks>
+    /// <b>Reference</b>: 
+    /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
+    /// </remarks>
+    [AddComponentMenu("Seequencer/Interaction/Reticle")]
+    [RequireComponent(typeof(SkinnedMeshRenderer))]
+    public class Reticle : Interactor
+    {
+        /// <summary>
+        /// Projector used by the reticle.
+        /// </summary>
+        private Hardboard.Projector _projector;
 
-	/// <summary>
-	/// Skinned mesh used by the reticle.
-	/// </summary>
-	private SkinnedMeshRenderer _renderer = null;
+        /// <summary>
+        /// Skinned mesh used by the reticle.
+        /// </summary>
+        private SkinnedMeshRenderer _renderer = null;
 
-	/// <summary>
-	/// Index of the <see cref="BlendShape"/> to close the reticle.
-	/// </summary>
-	private const int _BLENDSHAPE_INDEX = 0;
+        /// <summary>
+        /// Index of the <see cref="BlendShape"/> to close the reticle.
+        /// </summary>
+        private const int _BLENDSHAPE_INDEX = 0;
 
-	/// <summary>
-	/// Update the mesh based on the reticle properties.
-	/// </summary>
-	private void UpdateWeights()
-	{
-		float weight = Current?.Percentage ?? 0.0f;
+        /// <summary>
+        /// Update the mesh based on the reticle properties.
+        /// </summary>
+        private void UpdateWeights()
+        {
+            float weight = Current?.Percentage ?? 0.0f;
 
-		_renderer.SetBlendShapeWeight(_BLENDSHAPE_INDEX, weight);
-	}
+            _renderer.SetBlendShapeWeight(_BLENDSHAPE_INDEX, weight);
+        }
 
-	/// <remarks>
-	/// Get <see cref="_renderer"/>.
-	/// </remarks>
-	private void Awake()
-	{
-		if (!TryGetComponent(out _renderer))
-		{
-			Debug.LogError($"{nameof(_renderer)} is null.");
-		}
+        /// <remarks>
+        /// Get <see cref="_renderer"/>.
+        /// </remarks>
+        private void Awake()
+        {
+            if (!TryGetComponent(out _renderer))
+            {
+                Debug.LogError($"{nameof(_renderer)} is null.");
+            }
 
-		_projector = new(_renderer);
-	}
+            _projector = new(_renderer);
+        }
 
-	/// <remarks>
-	/// Refer to <see cref="UpdateWeights"/>.
-	/// </remarks>
-	private void LateUpdate()
-	{
-		_projector.SetParams(Distance, Current != null);
-		_projector.UpdateDiameters();
+        /// <remarks>
+        /// Refer to <see cref="UpdateWeights"/>.
+        /// </remarks>
+        private void LateUpdate()
+        {
+            _projector.SetParams(Distance, Current != null);
+            _projector.UpdateDiameters();
 
-		UpdateWeights();
-	}
-}
+            UpdateWeights();
+        }
+    }
 
 }

@@ -18,174 +18,174 @@ using UnityEngine.Events;
 namespace See.Interaction
 {
 
-/// <summary>
-/// An <see cref="Interactable"/> is called by an <see cref="Interactor"/> to
-/// enter/exit an interaction, which calls <see cref="Interactor.Complete"/>.
-/// </summary>
-/// <remarks>
-/// <b>Note:</b>
-/// they co-maintain a one-to-one relationship.
-/// </remarks>
-[AddComponentMenu("Seequencer/Interaction/Interactable")]
-public class Interactable : MonoBehaviour
-{
-	/// <summary>
-	/// Minimum duration of an interaction (in seconds).
-	/// </summary>
-	private const float _DURATION_MIN = 0.5f;
+    /// <summary>
+    /// An <see cref="Interactable"/> is called by an <see cref="Interactor"/> to
+    /// enter/exit an interaction, which calls <see cref="Interactor.Complete"/>.
+    /// </summary>
+    /// <remarks>
+    /// <b>Note:</b>
+    /// they co-maintain a one-to-one relationship.
+    /// </remarks>
+    [AddComponentMenu("Seequencer/Interaction/Interactable")]
+    public class Interactable : MonoBehaviour
+    {
+        /// <summary>
+        /// Minimum duration of an interaction (in seconds).
+        /// </summary>
+        private const float _DURATION_MIN = 0.5f;
 
-	/// <summary>
-	/// Maximum duration of an interaction (in seconds).
-	/// </summary>
-	private const float _DURATION_MAX = 3.0f;
+        /// <summary>
+        /// Maximum duration of an interaction (in seconds).
+        /// </summary>
+        private const float _DURATION_MAX = 3.0f;
 
-	/// <summary>
-	/// Duration of an interaction (in seconds).
-	/// </summary>
-	[Range(_DURATION_MIN, _DURATION_MAX)]
-	[SerializeField]
-	private float _duration = 1.5f;
+        /// <summary>
+        /// Duration of an interaction (in seconds).
+        /// </summary>
+        [Range(_DURATION_MIN, _DURATION_MAX)]
+        [SerializeField]
+        private float _duration = 1.5f;
 
-	/// <summary>
-	/// Elapsed time of an interaction (in seconds).
-	/// </summary>
-	private float _elapsed = 0.0f;
+        /// <summary>
+        /// Elapsed time of an interaction (in seconds).
+        /// </summary>
+        private float _elapsed = 0.0f;
 
-	/// <summary>
-	/// Percentage of an interaction.
-	/// </summary>
-	public float Percentage => Mathf.Clamp01(_elapsed / _duration) * 100;
+        /// <summary>
+        /// Percentage of an interaction.
+        /// </summary>
+        public float Percentage => Mathf.Clamp01(_elapsed / _duration) * 100;
 
-	/// <summary>
-	/// Event invoked if an interaction is entered.
-	/// </summary>
-	[SerializeField]
-	protected UnityEvent OnEnter;
+        /// <summary>
+        /// Event invoked if an interaction is entered.
+        /// </summary>
+        [SerializeField]
+        protected UnityEvent OnEnter;
 
-	/// <summary>
-	/// Event invoked if an interaction is exited.
-	/// </summary>
-	[SerializeField]
-	protected UnityEvent OnExit;
+        /// <summary>
+        /// Event invoked if an interaction is exited.
+        /// </summary>
+        [SerializeField]
+        protected UnityEvent OnExit;
 
-	/// <summary>
-	/// Event invoked if an interaction is completed.
-	/// </summary>
-	[SerializeField]
-	protected UnityEvent OnComplete;
+        /// <summary>
+        /// Event invoked if an interaction is completed.
+        /// </summary>
+        [SerializeField]
+        protected UnityEvent OnComplete;
 
-	/// <summary>
-	/// Reference to the currently interacting with <see cref="Interactor"/>,
-	/// if not <c>null</c>.
-	/// </summary>
-	private Interactor _current = null;
-	
-	/// <summary>
-	/// Method called by an <see cref="Interactor"/> to enter an interaction.
-	/// </summary>
-	/// <remarks>
-	/// <b>Note:</b>
-	/// an interaction can only be entered if the <see cref="Interactable"/> is
-	/// not interacting with another <see cref="Interactor"/>.
-	/// </remarks>
-	/// <param name="interactor">Entering <see cref="Interactor"/>.</param>
-	/// <returns>
-	/// <c>true</c> if the interaction is entered, otherwise <c>false</c>.
-	/// </returns>
-	public bool Enter(Interactor interactor)
-	{
-		if (_current != null)
-		{
-			return false;
-		}
+        /// <summary>
+        /// Reference to the currently interacting with <see cref="Interactor"/>,
+        /// if not <c>null</c>.
+        /// </summary>
+        private Interactor _current = null;
 
-		_current = interactor;
+        /// <summary>
+        /// Method called by an <see cref="Interactor"/> to enter an interaction.
+        /// </summary>
+        /// <remarks>
+        /// <b>Note:</b>
+        /// an interaction can only be entered if the <see cref="Interactable"/> is
+        /// not interacting with another <see cref="Interactor"/>.
+        /// </remarks>
+        /// <param name="interactor">Entering <see cref="Interactor"/>.</param>
+        /// <returns>
+        /// <c>true</c> if the interaction is entered, otherwise <c>false</c>.
+        /// </returns>
+        public bool Enter(Interactor interactor)
+        {
+            if (_current != null)
+            {
+                return false;
+            }
 
-		OnEnter?.Invoke();
+            _current = interactor;
 
-		return true;
-	}
+            OnEnter?.Invoke();
 
-	/// <summary>
-	/// Method called by an <see cref="Interactor"/> to exit an interaction.
-	/// </summary>
-	/// <remarks>
-	/// <b>Note:</b>
-	/// an interaction can only be exited if the <see cref="Interactable"/> is
-	/// interacting with the same <see cref="Interactor"/>.
-	/// </remarks>
-	/// <param name="interactor">Exiting <see cref="Interactor"/>.</param>
-	public void Exit(Interactor interactor)
-	{
-		if (_current == interactor)
-		{
-			OnExit?.Invoke();
+            return true;
+        }
 
-			_current = null;
-		}
-	}
+        /// <summary>
+        /// Method called by an <see cref="Interactor"/> to exit an interaction.
+        /// </summary>
+        /// <remarks>
+        /// <b>Note:</b>
+        /// an interaction can only be exited if the <see cref="Interactable"/> is
+        /// interacting with the same <see cref="Interactor"/>.
+        /// </remarks>
+        /// <param name="interactor">Exiting <see cref="Interactor"/>.</param>
+        public void Exit(Interactor interactor)
+        {
+            if (_current == interactor)
+            {
+                OnExit?.Invoke();
 
-	/// <summary>
-	/// Method called by an <see cref="Interactor"/> to complete an interaction.
-	/// </summary>
-	/// <remarks>
-	/// <b>Note:</b>
-	/// an interaction can only be completed if the <see cref="Interactable"/>
-	/// is interacting with the same <see cref="Interactor"/>.
-	/// </remarks>
-	/// <param name="interactor">An <see cref="Interactor"/>.</param>
-	public void Complete(Interactor interactor)
-	{
-		if (_current == interactor)
-		{
-			CompleteTimer();
-		}
-	}
+                _current = null;
+            }
+        }
 
-	/// <summary>
-	/// Reset the elapsed time of an interaction.
-	/// </summary>
-	private void ResetTimer()
-	{
-		_elapsed = 0.0f;
-	}
+        /// <summary>
+        /// Method called by an <see cref="Interactor"/> to complete an interaction.
+        /// </summary>
+        /// <remarks>
+        /// <b>Note:</b>
+        /// an interaction can only be completed if the <see cref="Interactable"/>
+        /// is interacting with the same <see cref="Interactor"/>.
+        /// </remarks>
+        /// <param name="interactor">An <see cref="Interactor"/>.</param>
+        public void Complete(Interactor interactor)
+        {
+            if (_current == interactor)
+            {
+                CompleteTimer();
+            }
+        }
 
-	/// <summary>
-	/// Method called to complete an interaction.
-	/// </summary>
-	private void CompleteTimer()
-	{
-		if (_current != null && _current.Complete(this))
-		{
-			OnComplete?.Invoke();
-			ResetTimer();
-		}
-	}
+        /// <summary>
+        /// Reset the elapsed time of an interaction.
+        /// </summary>
+        private void ResetTimer()
+        {
+            _elapsed = 0.0f;
+        }
 
-	/// <summary>
-	/// Update the elapsed time of an interaction.
-	/// </summary>
-	private void UpdateTimer()
-	{
-		if (_current == null)
-		{
-			ResetTimer();
-			return;
-		}
+        /// <summary>
+        /// Method called to complete an interaction.
+        /// </summary>
+        private void CompleteTimer()
+        {
+            if (_current != null && _current.Complete(this))
+            {
+                OnComplete?.Invoke();
+                ResetTimer();
+            }
+        }
 
-		if ((_elapsed += Time.deltaTime) >= _duration)
-		{
-			CompleteTimer();
-		}
-	}
+        /// <summary>
+        /// Update the elapsed time of an interaction.
+        /// </summary>
+        private void UpdateTimer()
+        {
+            if (_current == null)
+            {
+                ResetTimer();
+                return;
+            }
 
-	/// <remarks>
-	/// Must call <see cref="UpdateTimer"/>. 
-	/// </remarks>
-	private void Update()
-	{
-		UpdateTimer();
-	}
-}
+            if ((_elapsed += Time.deltaTime) >= _duration)
+            {
+                CompleteTimer();
+            }
+        }
+
+        /// <remarks>
+        /// Must call <see cref="UpdateTimer"/>. 
+        /// </remarks>
+        private void Update()
+        {
+            UpdateTimer();
+        }
+    }
 
 }

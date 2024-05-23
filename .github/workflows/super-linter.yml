@@ -17,6 +17,8 @@ jobs:
       - name: Linter
         uses: github/super-linter@v6
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_CSHARP: true
+          VALIDATE_YAML: true
           DEFAULT_BRANCH: 'release'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

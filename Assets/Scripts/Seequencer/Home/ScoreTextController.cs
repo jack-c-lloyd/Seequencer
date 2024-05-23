@@ -18,44 +18,44 @@ using UnityEngine.Events;
 namespace See.Home
 {
 
-/// <summary>
-/// Invokes an event with a formatted string containing the score of a scene.
-/// </summary>
-/// <remarks>
-/// Used to set the score text in the Home scene.
-/// </remarks>
-[AddComponentMenu("Seequencer/Home/ScoreTextController")]
-public class ScoreTextController : MonoBehaviour
-{
-	/// <summary>
-	/// Build index of a scene for which to get the score.
-	/// </summary>
-	public Controllers.SceneController.SceneIndex sceneIndex;
+    /// <summary>
+    /// Invokes an event with a formatted string containing the score of a scene.
+    /// </summary>
+    /// <remarks>
+    /// Used to set the score text in the Home scene.
+    /// </remarks>
+    [AddComponentMenu("Seequencer/Home/ScoreTextController")]
+    public class ScoreTextController : MonoBehaviour
+    {
+        /// <summary>
+        /// Build index of a scene for which to get the score.
+        /// </summary>
+        public Controllers.SceneController.SceneIndex sceneIndex;
 
-	/// <summary>
-	/// Prefix of the score text.
-	/// </summary>
-	[SerializeField]
-	private string _prefix = "SCORE: ";
+        /// <summary>
+        /// Prefix of the score text.
+        /// </summary>
+        [SerializeField]
+        private string _prefix = "SCORE: ";
 
-	/// <summary>
-	/// Event invoked on <see cref="Awake"/>.
-	/// </summary>
-	public UnityEvent<string> OnAwake = null;
+        /// <summary>
+        /// Event invoked on <see cref="Awake"/>.
+        /// </summary>
+        public UnityEvent<string> OnAwake = null;
 
-	/// <remarks>
-	/// Invoke <see cref="OnAwake"/> with the formatted string.
-	/// </remarks>
-	private void Awake()
-	{
-		string name = System.Enum.GetName(typeof(Controllers.SceneController.SceneIndex),
-			(int)sceneIndex);
+        /// <remarks>
+        /// Invoke <see cref="OnAwake"/> with the formatted string.
+        /// </remarks>
+        private void Awake()
+        {
+            string name = System.Enum.GetName(typeof(Controllers.SceneController.SceneIndex),
+                (int)sceneIndex);
 
-		int score = PlayerPrefs.GetInt(name, 0);
-		string formatted = $"{_prefix}{score}";
+            int score = PlayerPrefs.GetInt(name, 0);
+            string formatted = $"{_prefix}{score}";
 
-		OnAwake?.Invoke(formatted);
-	}
-}
+            OnAwake?.Invoke(formatted);
+        }
+    }
 
 }

@@ -18,91 +18,91 @@ using UnityEngine.Events;
 namespace See.Selection
 {
 
-/// <summary>
-/// A <see cref="Selectable"/> may be selected by its <see cref="Selector"/>.
-/// </summary>
-[AddComponentMenu("Seequencer/Selection/Selectable")]
-public class Selectable : MonoBehaviour, Utility.IObserver<Selector>
-{
-	/// <summary>
-	/// The <see cref="Selector"/>.
-	/// </summary>
-	[SerializeField]
-	private Selector _selector = null;
+    /// <summary>
+    /// A <see cref="Selectable"/> may be selected by its <see cref="Selector"/>.
+    /// </summary>
+    [AddComponentMenu("Seequencer/Selection/Selectable")]
+    public class Selectable : MonoBehaviour, Utility.IObserver<Selector>
+    {
+        /// <summary>
+        /// The <see cref="Selector"/>.
+        /// </summary>
+        [SerializeField]
+        private Selector _selector = null;
 
-	/// <summary>
-	/// Public-safe access to <see cref="_selector"/>.
-	/// </summary>
-	public Selector Subject => _selector;
+        /// <summary>
+        /// Public-safe access to <see cref="_selector"/>.
+        /// </summary>
+        public Selector Subject => _selector;
 
-	/// <summary>
-	/// Event invoked if selected by a <see cref="Selector"/>.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnSelect = null;
+        /// <summary>
+        /// Event invoked if selected by a <see cref="Selector"/>.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnSelect = null;
 
-	/// <summary>
-	/// Event invoked if deselected by a <see cref="Selector"/>.
-	/// </summary>
-	[SerializeField]
-	private UnityEvent OnDeselect = null;
+        /// <summary>
+        /// Event invoked if deselected by a <see cref="Selector"/>.
+        /// </summary>
+        [SerializeField]
+        private UnityEvent OnDeselect = null;
 
-	/// <summary>
-	/// Method called to invoke the event <see cref="OnSelect"/>.
-	/// </summary>
-	/// <remarks>
-	/// Should be called by a <see cref="Selector"/>.
-	/// </remarks>
-	public void Selected()
-	{
-		OnSelect?.Invoke();
-	}
+        /// <summary>
+        /// Method called to invoke the event <see cref="OnSelect"/>.
+        /// </summary>
+        /// <remarks>
+        /// Should be called by a <see cref="Selector"/>.
+        /// </remarks>
+        public void Selected()
+        {
+            OnSelect?.Invoke();
+        }
 
-	/// <summary>
-	/// Method called to invoke the event <see cref="OnDeselect"/>.
-	/// </summary>
-	/// <remarks>
-	/// Should be called by a <see cref="Selector"/>.
-	/// </remarks>
-	public void Deselected()
-	{
-		OnDeselect?.Invoke();
-	}
+        /// <summary>
+        /// Method called to invoke the event <see cref="OnDeselect"/>.
+        /// </summary>
+        /// <remarks>
+        /// Should be called by a <see cref="Selector"/>.
+        /// </remarks>
+        public void Deselected()
+        {
+            OnDeselect?.Invoke();
+        }
 
-	/// <summary>
-	/// Method called to select the <see cref="Selectable"/>.
-	/// </summary>
-	public void Select()
-	{
-		if (_selector != null)
-		{
-			_selector.Select(this);
-		}
-	}
+        /// <summary>
+        /// Method called to select the <see cref="Selectable"/>.
+        /// </summary>
+        public void Select()
+        {
+            if (_selector != null)
+            {
+                _selector.Select(this);
+            }
+        }
 
-	/// <remarks>
-	/// <b>Warning</b>:
-	/// must call <see cref="Selector.Attach"/>.
-	/// </remarks>
-	public void OnEnable()
-	{
-		if (_selector != null && !_selector.Attach(this))
-		{
-			Debug.LogError($"{this} could not attach to {_selector}.");
-		}
-	}
+        /// <remarks>
+        /// <b>Warning</b>:
+        /// must call <see cref="Selector.Attach"/>.
+        /// </remarks>
+        public void OnEnable()
+        {
+            if (_selector != null && !_selector.Attach(this))
+            {
+                Debug.LogError($"{this} could not attach to {_selector}.");
+            }
+        }
 
-	/// <remarks>
-	/// <b>Warning</b>:
-	/// must call <see cref="Selector.Detach"/>.
-	/// </remarks>
-	public void OnDisable()
-	{
-		if (_selector != null && !_selector.Detach(this))
-		{
-			Debug.LogError($"{this} could not detach from {_selector}.");
-		}
-	}
-}
+        /// <remarks>
+        /// <b>Warning</b>:
+        /// must call <see cref="Selector.Detach"/>.
+        /// </remarks>
+        public void OnDisable()
+        {
+            if (_selector != null && !_selector.Detach(this))
+            {
+                Debug.LogError($"{this} could not detach from {_selector}.");
+            }
+        }
+    }
 
 }

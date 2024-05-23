@@ -17,49 +17,49 @@ using UnityEngine;
 namespace See.Navigation
 {
 
-/// <summary>
-/// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
-/// </summary>
-/// <remarks>
-/// <b>Reference</b>: 
-/// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
-/// </remarks>
-[AddComponentMenu("Seequencer/Navigation/Arrow")]
-[RequireComponent(typeof(Renderer))]
-public class Arrow : MonoBehaviour
-{
-	/// <summary>
-	/// Projector used by the arrow.
-	/// </summary>
-	private Hardboard.Projector _projector;
+    /// <summary>
+    /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
+    /// </summary>
+    /// <remarks>
+    /// <b>Reference</b>: 
+    /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
+    /// </remarks>
+    [AddComponentMenu("Seequencer/Navigation/Arrow")]
+    [RequireComponent(typeof(Renderer))]
+    public class Arrow : MonoBehaviour
+    {
+        /// <summary>
+        /// Projector used by the arrow.
+        /// </summary>
+        private Hardboard.Projector _projector;
 
-	/// <summary>
-	/// Used for the arrow projection.
-	/// </summary>
-	[SerializeField]
-	private Interaction.Interactor _interactor = null;
+        /// <summary>
+        /// Used for the arrow projection.
+        /// </summary>
+        [SerializeField]
+        private Interaction.Interactor _interactor = null;
 
-	/// <remarks>
-	/// Get <see cref="_renderer"/>.
-	/// </remarks>
-	private void Awake()
-	{
-		if (!TryGetComponent(out Renderer renderer))
-		{
-			Debug.LogError($"{nameof(renderer)} is null.");
-		}
+        /// <remarks>
+        /// Get <see cref="_renderer"/>.
+        /// </remarks>
+        private void Awake()
+        {
+            if (!TryGetComponent(out Renderer renderer))
+            {
+                Debug.LogError($"{nameof(renderer)} is null.");
+            }
 
-		_projector = new(renderer);
-	}
+            _projector = new(renderer);
+        }
 
-	/// <remarks>
-	/// Update the properties of the projection.
-	/// </remarks>
-	private void Update()
-	{
-		_projector.SetParams(_interactor.Distance, true);
-		_projector.UpdateDiameters();
-	}
-}
+        /// <remarks>
+        /// Update the properties of the projection.
+        /// </remarks>
+        private void Update()
+        {
+            _projector.SetParams(_interactor.Distance, true);
+            _projector.UpdateDiameters();
+        }
+    }
 
 }
