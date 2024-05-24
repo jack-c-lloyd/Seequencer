@@ -18,5 +18,4 @@ jobs:
         stale-issue-message: 'This issue has been marked as stale.'
         stale-pr-message: 'This pull request has been marked as stale.'
         stale-issue-label: 'stale'
-        close-issue-reason: 'Closed due to being marked as stale.'
         stale-pr-label: 'stale'
