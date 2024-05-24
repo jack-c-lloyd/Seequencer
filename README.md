@@ -1,6 +1,8 @@
 ![Header](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/6f86bbbe-6dc4-4a17-a576-ee651a5692f5)
 ![Footer](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/666673f2-a0ca-49f3-8bd8-54a9516c3fb9)
 
+[![Super-Linter](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 # Seequencer
 
 **Seequencer** is a virtual-reality (VR) app for Android and iOS, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio. This project is developed on a MacBook Pro (Intel, 2020) running macOS Sonoma with an iPhone 14 running iOS 17 Developer Beta.
