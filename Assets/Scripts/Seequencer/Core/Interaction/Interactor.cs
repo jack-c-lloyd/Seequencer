@@ -14,6 +14,7 @@
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace See.Interaction
 {
@@ -191,6 +192,9 @@ namespace See.Interaction
             return true;
         }
 
+        /// <summary>
+        /// Cancel the current interaction.
+        /// </summary>
         private void Cancel()
         {
             if (_previous != null)
@@ -204,6 +208,31 @@ namespace See.Interaction
             _current = null;
         }
 
+        /// <summary>
+        /// Trigger a manual interaction.
+        /// </summary>
+        public void Trigger(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                Triggered();
+            }
+        }
+
+        /// <summary>
+        /// Called if a manual interaction is triggered.
+        /// </summary>
+        public void Triggered()
+        {
+            Detect();
+            Compare();
+
+            if (_current != null)
+            {
+                _current.Complete(this);
+            }
+        }
+
         /// <remarks>
         /// Use the Google Cardboard XR Plugin API for manual interactions.
         /// </remarks>
@@ -211,13 +240,7 @@ namespace See.Interaction
         {
             if (Google.XR.Cardboard.Api.IsTriggerPressed)
             {
-                Detect();
-                Compare();
-
-                if (_current != null)
-                {
-                    _current.Complete(this);
-                }
+                Triggered();
             }
         }
 
