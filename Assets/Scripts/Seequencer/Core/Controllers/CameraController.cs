@@ -98,9 +98,9 @@ namespace See
         /// </remarks>
         private void Update()
         {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             // ...
-#elif UNITY_IOS
+#elif UNITY_IOS && !UNITY_EDITOR
             // ...
 #else
             Rotate(Time.deltaTime);

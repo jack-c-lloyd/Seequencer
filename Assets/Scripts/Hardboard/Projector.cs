@@ -18,9 +18,8 @@
 
 using UnityEngine;
 
-namespace Hardboard
+namespace See.Hardboard
 {
-
     /// <summary>
     /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
     /// </summary>
@@ -178,5 +177,4 @@ namespace Hardboard
             _outerAngle = MIN_OUTER_ANGLE;
         }
     }
-
 }

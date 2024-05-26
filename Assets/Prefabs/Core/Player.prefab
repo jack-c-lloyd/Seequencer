@@ -102,7 +102,7 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6898875357611402103}
+      - m_Target: {fileID: 6083524703516192839}
         m_TargetAssemblyTypeName: See.Interaction.Interactor, Assembly-CSharp
         m_MethodName: Trigger
         m_Mode: 0
@@ -357,8 +357,9 @@ GameObject:
   - component: {fileID: 6483990001865307608}
   - component: {fileID: 7804078469319225566}
   - component: {fileID: 2658163473039045545}
-  - component: {fileID: 3101496908305240302}
   - component: {fileID: 2860814952445289107}
+  - component: {fileID: 3101496908305240302}
+  - component: {fileID: 6083524703516192839}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -461,6 +462,21 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!114 &2860814952445289107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5265495137052848109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d7b467c621944878bbd204d95004ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 360
+  _pitch: 0
+  _yaw: 0
 --- !u!114 &3101496908305240302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,8 +494,8 @@ MonoBehaviour:
   OnStable:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6898875357611402103}
-        m_TargetAssemblyTypeName: See.Interactor, Assembly-CSharp
+      - m_Target: {fileID: 6083524703516192839}
+        m_TargetAssemblyTypeName: See.Interaction.Interactor, Assembly-CSharp
         m_MethodName: set_CanInteract
         m_Mode: 6
         m_Arguments:
@@ -493,8 +509,8 @@ MonoBehaviour:
   OnUnstable:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6898875357611402103}
-        m_TargetAssemblyTypeName: See.Interactor, Assembly-CSharp
+      - m_Target: {fileID: 6083524703516192839}
+        m_TargetAssemblyTypeName: See.Interaction.Interactor, Assembly-CSharp
         m_MethodName: set_CanInteract
         m_Mode: 6
         m_Arguments:
@@ -505,7 +521,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2860814952445289107
+--- !u!114 &6083524703516192839
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -514,12 +530,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 5265495137052848109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d7b467c621944878bbd204d95004ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 21d359a98ae104e2ba41f270b826f787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 360
-  _pitch: 0
-  _yaw: 0
+  _canInteract: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529776894665523134}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: c70a92efb5c85499481802d7dc5bc4d7, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529776894665523134}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 373ef2b6f32b744c5a38fd959dcdbc24, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6657927190339138515
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +682,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1145418577624088801, guid: 7d5d681f5f3b940f7a6cf46e8eb5c5a1, type: 2}
-  m_audioClip: {fileID: 8300000, guid: c70a92efb5c85499481802d7dc5bc4d7, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -730,43 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1739ea059213349ffb1d227966218612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canInteract: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 529776894665523134}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: c70a92efb5c85499481802d7dc5bc4d7, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-  OnComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 529776894665523134}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 373ef2b6f32b744c5a38fd959dcdbc24, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  _interactor: {fileID: 6083524703516192839}
 --- !u!1 &7170251020108378673
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,4 +923,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84382e8e0e8d74ac6b75eb82bc93cf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interactor: {fileID: 6898875357611402103}
+  _interactor: {fileID: 6083524703516192839}

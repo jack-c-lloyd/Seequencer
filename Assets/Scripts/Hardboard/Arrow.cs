@@ -14,9 +14,8 @@
 
 using UnityEngine;
 
-namespace See.Interaction
+namespace See.Hardboard
 {
-
     /// <summary>
     /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
     /// </summary>
@@ -24,58 +23,41 @@ namespace See.Interaction
     /// <b>Reference</b>: 
     /// <see href="https://github.com/googlevr/cardboard-xr-plugin"/>
     /// </remarks>
-    [AddComponentMenu("Seequencer/Interaction/Reticle")]
-    [RequireComponent(typeof(SkinnedMeshRenderer))]
-    public class Reticle : Interactor
+    [AddComponentMenu("Seequencer/Navigation/Arrow")]
+    [RequireComponent(typeof(Renderer))]
+    public class Arrow : MonoBehaviour
     {
         /// <summary>
-        /// Projector used by the reticle.
+        /// Projector used by the arrow.
         /// </summary>
-        private Hardboard.Projector _projector;
+        private Projector _projector;
 
         /// <summary>
-        /// Skinned mesh used by the reticle.
+        /// Used for the arrow projection.
         /// </summary>
-        private SkinnedMeshRenderer _renderer = null;
-
-        /// <summary>
-        /// Index of the <see cref="BlendShape"/> to close the reticle.
-        /// </summary>
-        private const int _BLENDSHAPE_INDEX = 0;
-
-        /// <summary>
-        /// Update the mesh based on the reticle properties.
-        /// </summary>
-        private void UpdateWeights()
-        {
-            float weight = Current?.Percentage ?? 0.0f;
-
-            _renderer.SetBlendShapeWeight(_BLENDSHAPE_INDEX, weight);
-        }
+        [SerializeField]
+        private Interaction.Interactor _interactor = null;
 
         /// <remarks>
         /// Get <see cref="_renderer"/>.
         /// </remarks>
         private void Awake()
         {
-            if (!TryGetComponent(out _renderer))
+            if (!TryGetComponent(out Renderer renderer))
             {
-                Debug.LogError($"{nameof(_renderer)} is null.");
+                Debug.LogError($"{nameof(renderer)} is null.");
             }
 
-            _projector = new(_renderer);
+            _projector = new(renderer);
         }
 
         /// <remarks>
-        /// Refer to <see cref="UpdateWeights"/>.
+        /// Update the properties of the projection.
         /// </remarks>
-        private void LateUpdate()
+        private void Update()
         {
-            _projector.SetParams(Distance, Current != null);
+            _projector.SetParams(_interactor.Distance, true);
             _projector.UpdateDiameters();
-
-            UpdateWeights();
         }
     }
-
 }
