@@ -1,0 +1,50 @@
+# https://github.com/actions/checkout
+# https://github.com/actions/cache
+# https://github.com/jlumbroso/free-disk-space
+# https://github.com/game-ci/unity-builder
+# https://github.com/actions/upload-artifact
+name: Unity Builder
+on:
+  push:
+    branches:
+      - 'release'
+  pull_request:
+    branches:
+      - 'release'
+jobs:
+  build:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneLinux64
+          - StandaloneOSX
+          - StandaloneWindows
+          - StandaloneWindows64
+          - Android
+          - iOS
+          # - WebGL
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - if: matrix.targetPlatform == 'Android'
+        uses: jlumbroso/free-disk-space@v1.3.1
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
