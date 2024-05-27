@@ -1,7 +1,7 @@
 ![Header](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/6f86bbbe-6dc4-4a17-a576-ee651a5692f5)
 ![Footer](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/666673f2-a0ca-49f3-8bd8-54a9516c3fb9)
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Super-Linter](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Super-Linter](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter) [![Unity Builder](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/unity-builder.yml/badge.svg)](https://github.com/marketplace/actions/unity-builder)
 
 # Seequencer
 
