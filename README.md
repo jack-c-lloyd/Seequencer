@@ -1,16 +1,31 @@
-![Header](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/6f86bbbe-6dc4-4a17-a576-ee651a5692f5)
-![Footer](https://github.com/jack-c-lloyd/Seequencer/assets/34939944/666673f2-a0ca-49f3-8bd8-54a9516c3fb9)
+<p align="center">
+  <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/6f86bbbe-6dc4-4a17-a576-ee651a5692f5" />
+  <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/666673f2-a0ca-49f3-8bd8-54a9516c3fb9" />
+</p>
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Super-Linter](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter) [![Unity Builder](https://github.com/jack-c-lloyd/Seequencer/actions/workflows/unity-builder.yml/badge.svg)](https://github.com/marketplace/actions/unity-builder)
+<p align="center">
+    <a href="https://opensource.org/licenses/Apache-2.0" alt="License (Apache-2.0)">
+        <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+    <a href="https://github.com/marketplace/actions/super-linter" alt="Super-Linter">
+        <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg" /></a>
+    <a href="https://github.com/marketplace/actions/unity-builder" alt="Unity Builder">
+        <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/unity-builder.yml/badge.svg" /></a>
+</p>
 
 # Seequencer
 
-**Seequencer** is a virtual-reality (VR) app for Android and iOS, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio. This project is developed on a MacBook Pro (Intel, 2020) running macOS Sonoma with an iPhone 14 running iOS 17 Developer Beta.
+**Seequencer** is a virtual-reality (VR) app for Android and iOS<sup>*</sup>, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio. This project is developed on a MacBook Pro (Intel, 2020) running macOS Sonoma with an iPhone 14 running iOS 17 Developer Beta.
+
+<sup>* Linux, macOS, and Windows are also supported.</sup>
 
 > [!IMPORTANT]
-> **Build Settings**: refer to the [Quickstart for Google Cardboard for Unity](https://developers.google.com/cardboard/develop/unity/quickstart).
-> - [Android](https://developers.google.com/cardboard/develop/unity/quickstart#configuring_android_project_settings)
-> - [iOS](https://developers.google.com/cardboard/develop/unity/quickstart#configuring_ios_project_settings)
+> **macOS** has a known issue, please follow the instructions below for a workaround:
+>
+> 1. Right-click the unzipped `.app` and select `New Terminal at Folder`.
+> 2. Run the following command `chmod -R +x ./` in the terminal.
+> 3. Right-click the unzipped `.app`, again, and select `Show Package Contents`.
+> 4. Navigate to the folder `Contents/MacOS/`.
+> 5. Right-click on `Seequencer` and select `Open`.
 
 ## Gameplay
 
