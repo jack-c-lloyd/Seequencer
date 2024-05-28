@@ -3,9 +3,13 @@
 name: Super Linter
 on:
   push:
-    branches: [ 'release', 'experimental' ]
+    branches:
+      - 'release'
+      - 'experimental'
   pull_request:
-    branches: [ 'release', 'experimental' ]
+    branches:
+      - 'release'
+      - 'experimental'
 jobs:
   run-lint:
     runs-on: ubuntu-latest

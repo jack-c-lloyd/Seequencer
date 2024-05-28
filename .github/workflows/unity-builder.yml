@@ -8,9 +8,17 @@ on:
   push:
     branches:
       - 'release'
+    paths:
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'ProjectSettings/**'
   pull_request:
     branches:
       - 'release'
+    paths:
+      - 'Assets/**'
+      - 'Packages/**'
+      - 'ProjectSettings/**'
 jobs:
   build:
     name: Build for ${{ matrix.targetPlatform }}
