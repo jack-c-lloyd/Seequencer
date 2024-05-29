@@ -1,4 +1,4 @@
-Shader "Seequencer/Reticle"
+Shader "Hardboard/Projection"
 {
     Properties
     {
@@ -12,18 +12,20 @@ Shader "Seequencer/Reticle"
     {
         Tags
         {
-            "Queue"="Overlay"
             "IgnoreProjector"="True"
             "RenderType"="Transparent"
+            "Queue"="Overlay"
         }
 
         Pass
         {
-            Blend OneMinusDstColor OneMinusSrcAlpha
-            ZTest Less
+            Name "Projection"
+
+            Blend OneMinusDstColor OneMinusSrcColor
+            ZTest NotEqual
             ZWrite On
 
-            CGPROGRAM
+            HLSLPROGRAM
 
             #pragma vertex vert
             #pragma fragment frag
@@ -35,32 +37,33 @@ Shader "Seequencer/Reticle"
             uniform float _OuterDiameter;
             uniform float _DistanceInMeters;
 
-            struct vertexInput
+            struct v2f
             {
-                float4 vertex : POSITION;
+                float4 pos : SV_POSITION;
             };
 
-            struct fragmentInput
+            v2f vert(float4 pos : POSITION)
             {
-                float4 position : SV_POSITION;
-            };
-
-            fragmentInput vert(vertexInput i)
-            {
-                float scale = lerp(_OuterDiameter, _InnerDiameter, i.vertex.z);
-                float3 vert_out = float3(i.vertex.x * scale, i.vertex.y * scale, _DistanceInMeters);
-                fragmentInput o;
-                o.position = UnityObjectToClipPos(vert_out);
+                float scale = lerp(_OuterDiameter, _InnerDiameter, pos.z);
+                float3 vert_out = float3(pos.x * scale, pos.y * scale, _DistanceInMeters);
+                v2f o = { UnityObjectToClipPos(vert_out) };
                 return o;
             }
 
-            fixed4 frag(fragmentInput i, out float depth : SV_Depth) : SV_Target
+            fixed4 frag(v2f i, out float depth : SV_Depth) : SV_Target
             {
-                depth = _Depth;
+                #if defined(UNITY_REVERSED_Z)
+                    depth = 1;
+                #else
+                    depth = -1;
+                #endif
+
                 return fixed4(1,1,1,1);
             }
 
-            ENDCG
+            ENDHLSL
         }
     }
+
+    Fallback Off
 }

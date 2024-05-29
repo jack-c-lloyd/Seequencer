@@ -33,7 +33,7 @@ jobs:
           - StandaloneWindows64
           - Android
           - iOS
-          # - WebGL
+          - WebGL
     steps:
       - uses: actions/checkout@v4
         with:
