@@ -30,7 +30,7 @@ namespace See
         /// </summary>
         [Range(float.Epsilon, 360.0f)]
         [SerializeField]
-        private float _speed = 360.0f;
+        private float _speed = 180.0f;
 
         /// <summary>
         /// Pitch of the camera (in degrees).
