@@ -4,19 +4,25 @@
 </p>
 
 <p align="center">
-    <a href="https://opensource.org/licenses/Apache-2.0" alt="License (Apache-2.0)">
-        <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
-    <a href="https://github.com/marketplace/actions/super-linter" alt="Super-Linter">
-        <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg" /></a>
-    <a href="https://github.com/marketplace/actions/unity-builder" alt="Unity Builder">
-        <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/unity-builder.yml/badge.svg" /></a>
+  <a href="https://opensource.org/licenses/Apache-2.0" alt="License (Apache-2.0)">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+  <a href="https://github.com/marketplace/actions/super-linter" alt="Super-Linter">
+    <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/super-linter.yml/badge.svg" /></a>
+  <a href="https://github.com/marketplace/actions/unity-builder" alt="Unity Builder">
+    <img src="https://github.com/jack-c-lloyd/Seequencer/actions/workflows/unity-builder.yml/badge.svg" /></a>
+</p>
+
+<p align="center">
+  <a href="https://play.unity.com/mg/other/seequencer" alt="Unity Play">
+    <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/d6c6fae8-ce45-458f-b015-7611e9523d05" /></a>
+  <br/>
 </p>
 
 # Seequencer
 
 **Seequencer** is a virtual-reality (VR) app for Android and iOS<sup>*</sup>, built using the [Google Cardboard XR Plugin for Unity](https://github.com/googlevr/cardboard-xr-plugin?tab=readme-ov-file). All in-game assets are created with free and open-source software; [GIMP](https://www.gimp.org) for 2D assets, [Blender](https://www.blender.org) for 3D assets, and [GarageBand](https://www.apple.com/mac/garageband/) for audio. This project is developed on a MacBook Pro (Intel, 2020) running macOS Sonoma with an iPhone 14 running iOS 17 Developer Beta.
 
-<sup>* Linux, macOS, and Windows are also supported.</sup>
+<sup>* Linux, macOS, and Windows, alongside WebGL, are also supported.</sup>
 
 > [!IMPORTANT]
 > **macOS** has a known issue, please follow the instructions below for a workaround:
@@ -38,6 +44,12 @@ There are three difficulty modes:
 1. **Easy**: 6 pads
 2. **Normal**: 24 pads
 3. **Hard**: 54 pads
+
+## Preview
+
+<p align="center">
+  <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/76725d9e-04f6-4964-814b-44c8b1d9f211" />
+</p>
 
 ## Screenshots
 
@@ -61,6 +73,5 @@ There are three difficulty modes:
   <a href="https://soundcloud.com/jack-c-lloyd/seequencer">
     <img src="https://github.com/jack-c-lloyd/Seequencer/assets/34939944/351d4b37-95a6-491b-a394-4a3e8001ff14"/>
   </a>
+  <p align="center">Listen on <b>SoundCloud</b></p>
 </p>
-
-<p align="center">Listen on <b>SoundCloud</b></p>
