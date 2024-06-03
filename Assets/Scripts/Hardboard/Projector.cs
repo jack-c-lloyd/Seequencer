@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace See.Hardboard
+namespace Hardboard
 {
     /// <summary>
     /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.

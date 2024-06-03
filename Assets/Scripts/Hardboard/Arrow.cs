@@ -14,7 +14,7 @@
 
 using UnityEngine;
 
-namespace See.Hardboard
+namespace Hardboard
 {
     /// <summary>
     /// Based on the reticle-pointer from the Google Cardboard XR Plugin for Unity.
@@ -36,7 +36,7 @@ namespace See.Hardboard
         /// Used for the arrow projection.
         /// </summary>
         [SerializeField]
-        private Interaction.Interactor _interactor = null;
+        private See.Interactor _interactor = null;
 
         /// <remarks>
         /// Get <see cref="_renderer"/>.

@@ -16,9 +16,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace See.Gameplay
+namespace See
 {
-
     /// <summary>
     /// Contains pads, for which it can generate, play, and record sequences.
     /// </summary>
@@ -291,5 +290,4 @@ namespace See.Gameplay
             _breaker.Open();
         }
     }
-
 }

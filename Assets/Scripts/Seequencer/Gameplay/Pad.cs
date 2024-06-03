@@ -14,11 +14,9 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
-namespace See.Gameplay
+namespace See
 {
-
     /// <summary>
     /// Played and recorded by a sequencer.
     /// </summary>
@@ -171,5 +169,4 @@ namespace See.Gameplay
             }
         }
     }
-
 }

@@ -15,9 +15,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace See.Home
+namespace See
 {
-
     /// <summary>
     /// Invokes an event with a formatted string containing the score of a scene.
     /// </summary>
@@ -30,7 +29,7 @@ namespace See.Home
         /// <summary>
         /// Build index of a scene for which to get the score.
         /// </summary>
-        public Controllers.SceneController.SceneIndex sceneIndex;
+        public LevelManager.LevelIndex levelIndex;
 
         /// <summary>
         /// Prefix of the score text.
@@ -48,8 +47,8 @@ namespace See.Home
         /// </remarks>
         private void Awake()
         {
-            string name = System.Enum.GetName(typeof(Controllers.SceneController.SceneIndex),
-                (int)sceneIndex);
+            string name = System.Enum.GetName(typeof(LevelManager.LevelIndex),
+                (int)levelIndex);
 
             int score = PlayerPrefs.GetInt(name, 0);
             string formatted = $"{_prefix}{score}";
@@ -57,5 +56,4 @@ namespace See.Home
             OnAwake?.Invoke(formatted);
         }
     }
-
 }

@@ -17,9 +17,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-namespace See.Gameplay
+namespace See
 {
-
     /// <summary>
     /// Direct the gameplay and instruct the player.
     /// </summary>
@@ -36,7 +35,7 @@ namespace See.Gameplay
         /// Arrow used by the player.
         /// </summary>
         [SerializeField]
-        private Navigation.Navigator _navigator = null;
+        private Navigator _navigator = null;
 
         [Header("Messages")]
 
@@ -246,5 +245,4 @@ namespace See.Gameplay
             StartCoroutine(Direct());
         }
     }
-
 }

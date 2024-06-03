@@ -15,9 +15,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace See.Home
+namespace See
 {
-
     /// <summary>
     /// Cycle through the colors of a rainbow.
     /// </summary>
@@ -111,5 +110,4 @@ namespace See.Home
             SetColor(_defaultColor);
         }
     }
-
 }
